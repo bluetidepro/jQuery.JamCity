@@ -1,6 +1,6 @@
 /*
- * jQuery.nowPlaying by Kyle Hotchkiss Productions (Originally Last.Fm Plugin by Engage Interactive)
- * Copyright (c) 2009 Engage Interactive / 2010 Kyle Hotchkiss Productions
+ * jQuery.nowPlaying by Engage Interactive & Kyle Hotchkiss Productions
+ * Copyright (c) 2009 - 2010 EI/KHP
  * Version: 1.1 (21-JAN-2010)
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
@@ -53,6 +53,8 @@
      album = item.album['#text'];
      $this.append(container);
      var $current = $this.children(':eq('+i+')');
+     
+     $current.append("<div></div>").html("hai!");
      $current.find('[class=lfm_song]').append(song);
      $current.find('[class=lfm_artist]').append(artist);
      $current.find('[class=lfm_album]').append(album);
