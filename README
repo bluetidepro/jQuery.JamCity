@@ -1,0 +1,11 @@
+To install, include jQuery & jQuery.nowPlaying.
+
+Add the following to your $(document).ready();
+
+ $('.nowPlaying').nowPlaying({
+  number:3, // Number of songs to display.
+  username:'kylehotchkiss', // Your username.
+  apikey:'please_insert_api', // Your API key.
+ });
+
+Now tada, You got music!
