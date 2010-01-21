@@ -30,11 +30,10 @@
   if(settings.artSize == 'medium'){imgSize = 1}
   if(settings.artSize == 'large'){imgSize = 2}
 
-  // This needs to be written to only run "COUNT" times.
   this.each(function() {
    $.getJSON(lastUrl, function(data) { 
     $.each(data.recenttracks.track, function(i, item) {
-     if(i > (settings.number-1)) return false;
+     if(i > (settings.number-1)) return false; // Take the "Number" setting more literally. 
     
      // This is the "Now Playing" dectector. 
      if ($(this).attr("@attr")) {
@@ -53,8 +52,6 @@
      album = item.album['#text'];
      $this.append(container);
      var $current = $this.children(':eq('+i+')');
-     
-     $current.append("<div></div>").html("hai!");
      $current.find('[class=lfm_song]').append(song);
      $current.find('[class=lfm_artist]').append(artist);
      $current.find('[class=lfm_album]').append(album);
@@ -62,7 +59,7 @@
       $current.find('[class=lfm_playing]').show();
      }
    
-     $current.find('[class=lfm_art]').append("<img src='"+art+"' alt='Artwork for "+album+"'/>");
+     $current.find('[class=lfm_art]').append("<img src='"+art+"' />");
      $current.find('a').attr('href', url).attr('title', 'Listen to '+song+' on Last.FM').attr('target', '_blank');
 
      if(i==(settings.number-1)) { 
