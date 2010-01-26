@@ -1,4 +1,5 @@
-To install, include jQuery & jQuery.nowPlaying.
+To install, include scripts/jQuery, scripts/jQuery.nowPlaying, and styles/lfm_style.css.
+Don't forget to leave put the images directory in too!
 
 Add the following to your $(document).ready();
 
@@ -10,17 +11,6 @@ Add the following to your $(document).ready();
 
 And this to your document:
 
- <div class="nowPlaying">
-  <div class="lfm_item">
-   <div class="lfm_art">
-    <a href="#"></a>
-    <div class="lfm_playing" title="now playing!"></div>
-   </div>
-   <div class="lfm_song"></div>
-   <div class="lfm_artist"></div>
-   <div class="lfm_album"></div>
-   <div class="clear"></div>
-  </div>
- </div>
+ <div class="nowPlaying"></div>
 
 Now tada, You got music!
