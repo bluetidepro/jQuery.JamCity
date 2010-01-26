@@ -1,0 +1,107 @@
+div.lfm_track {
+ background-color:#EEEEEC;
+ border:1px solid #D3D7CF;
+ border-radius:10px;
+ -moz-border-radius:10px;
+ -webkit-border-radius:10px;
+ color:#888A85;
+ font-size:11px;
+ font-family:'Helvetica', 'Arial', Sans;
+ margin-bottom:10px;
+ padding:10px;
+ text-shadow:0 1px 1px #FFFFFF;
+ width:320px;
+}
+
+div.lfm_track a { /* Compat fix */
+ border:0;
+}
+
+div.lfm_track div.lfm_art { /* Default */
+ background-image:url('../images/lfm_default_jewel.png');
+ background-position:11px 4px;
+ background-repeat:no-repeat;
+ float:left;
+ height:74px;
+ margin-right:10px;
+ width:81px;
+ z-index:1;
+}
+
+div.lfm_track div.lfm_art img {
+ height:64px;
+ margin-left:11px;
+ margin-top:4px;
+ overflow:hidden;
+ position:absolute;
+ width:64px;
+ z-index:2;
+}
+
+div.lfm_track div.lfm_art a { /* Overlay */
+ background-image:url('../images/lfm_overlay_jewel.png');
+ height:74px;
+ position:absolute;
+ width:81px;
+ z-index:4;
+}
+
+div.lfm_track div.lfm_art div.lfm_status { /* Status Image (Playing / Loved) */
+ height:62px;
+ margin-left:12px;
+ margin-top:5px;
+ position:absolute;
+ width:62px;
+ z-index:3;
+}
+
+div.lfm_track div.lfm_art div.lfm_status.loved {
+ background-image:url('../images/lfm_loved.png');
+ background-repeat:no-repeat;
+ background-position:bottom right;
+}
+
+div.lfm_track div.lfm_art div.lfm_status.playing {
+ background-image:url('../images/lfm_playing.png');
+ background-repeat:no-repeat;
+ background-position:bottom right;
+}
+
+div.lfm_track div.lfm_float {
+ float:left;
+}
+
+div.lfm_track div.lfm_song {
+ font-size:13px;
+ font-weight:bold;
+ overflow:hidden;
+ white-space:nowrap;
+ width:224px;
+}
+
+div.lfm_track div.lfm_artist {
+
+}
+
+div.lfm_track div.lfm_album {
+
+}
+
+div.lfm_track span.lfm_enlighten {
+ color:#BABDB6;
+ padding-right:5px;
+}
+
+div.lfm_track div.lfm_fade { /* Make hiding text un-extreme */
+ background-image:url('../images/lfm_fade.png');
+ background-repeat:repeat-y;
+ background-position:top right;
+ height:74px;
+ position:absolute;
+ width:225px;
+ z-index:2;
+}
+
+div.lfm_track div.lfm_clear {
+ clear:both;
+}

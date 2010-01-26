@@ -1,11 +1,12 @@
 /*
- * jQuery.nowPlaying by Engage Interactive & Kyle Hotchkiss Productions
- * Copyright (c) 2009 - 2010 EI/KHP
- * Version: 1.1 (21-JAN-2010)
- * Dual licensed under the MIT and GPL licenses:
+ * jQuery.nowPlaying by Kyle Hotchkiss Productions.
+ * Copyright (c) 2010 Kyle Hotchkiss Productions.
+ * Version: 1.0 (25-JAN-2010)
+ * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
- * Requires: jQuery v1.3 or later
+ * Portions of code derived from "Last.fm Plugin for jQuery"
+ * http://labs.engageinteractive.co.uk/lastfm/
+ * Requires: jQuery v1.3 or later & a Last.fm API key.
  */
 
 (function($) {
@@ -66,11 +67,11 @@
       var $current = $this.children(':eq('+i+')');
       $current.html(
        "<div class=\"lfm_art\">" +  
-        "<a href=\"http:\\\\" + url +"\" title=\"Listen to " + song + " on Last.FM\" target=\"_blank\">" + "</a>" +
-        "<div class=\"lfm_status loved\">" + 
-        "</div>" + 
+        "<a href=\"http:\\\\" + url +"\" title=\"Listen to " + song + " on Last.FM\" target=\"_blank\">" + "</a>" + // There is no rhyhme or reason here.
+        "<div class=\"lfm_status loved\">" + "</div>" + 
        "</div>" +
        "<div class=\"lfm_float\">" +
+        "<div class=\"lfm_fade\">" + "</div>" +
         "<div class=\"lfm_song\">" + song + "</div>" + 
         "<div class=\"lfm_artist\">" + "<span class=\"lfm_enlighten\">" + "by:" + "</span>" + artist + "</div>" +
        "</div>" +
@@ -111,10 +112,10 @@
       $current.html(
        "<div class=\"lfm_art\">" +  
         "<a href=\"" + url +"\" title=\"Listen to " + song + " on Last.FM\" target=\"_blank\">" + "</a>" +
-        "<div class=\"lfm_status\">" + 
-        "</div>" + 
+        "<div class=\"lfm_status\">" + "</div>" + 
        "</div>" +
        "<div class=\"lfm_float\">" +
+        "<div class=\"lfm_fade\">" + "</div>" +
         "<div class=\"lfm_song\">" + song + "</div>" + 
         "<div class=\"lfm_artist\">" + "<span class=\"lfm_enlighten\">" + "by:" + "</span>" + artist + "</div>" +
        "</div>" +
@@ -161,20 +162,23 @@
       $current.html(
        "<div class=\"lfm_art\">" +  
         "<a href=\"" + url +"\" title=\"Listen to " + song + " on Last.FM\" target=\"_blank\">" + "</a>" +
-        "<div class=\"lfm_status\">" + 
-        "</div>" + 
+        "<div class=\"lfm_status\">" + "</div>" + 
        "</div>" +
        "<div class=\"lfm_float\">" +
         "<div class=\"lfm_fade\">" + "</div>" +
         "<div class=\"lfm_song\">" + song + "</div>" + 
         "<div class=\"lfm_artist\">" + "<span class=\"lfm_enlighten\">" + "by:" + "</span>" + artist + "</div>" +
-        "<div class=\"lfm_album\">" + "<span class=\"lfm_enlighten\">" + "from:" + "</span>" + album + "</div>" +
+        "<div class=\"lfm_album\">" + "</div>" +
        "</div>" +
        "<div class=\"lfm_clear\">" + "</div>"
       );
       
       if (playing == '1') {
        $current.find('[class=lfm_status]').addClass("playing");
+      }
+      
+      if (album != '') {
+       $current.find('[class=lfm_album]').html("<span class=\"lfm_enlighten\">" + "from:" + "</span>" + album); // Lmao, this is OD Last.fm
       }
    
       if (displayArt) {

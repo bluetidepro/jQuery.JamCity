@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   jQuery.nowPlaying | Demo & Instructions
+  </title>
+  <link type="image/png" href="demo_files/favicon.png" rel="shortcut icon" />
+  <link type="text/css" href="css/lfm_style.css" rel="stylesheet" />
+  <style type="text/css">
+  
+   body {
+    border-top:10px solid #AD7FA8;
+    color:#2E3436;
+    font-family:'Georgia', serif;
+    font-size:13px;
+    margin:0;
+    padding:0;
+   }
+   
+   a {
+    border-bottom:1px solid #75507B;
+    color:#AD7FA8;
+    text-decoration:none;
+   }
+   
+   p {
+    line-height:1.7em;
+    margin-bottom:1.7em;
+   }
+   
+   ul, ol {
+    margin-bottom:1.7em;
+    margin-left:.8em;
+   }
+   
+   ul li, ol li {
+    line-height:1.7em;
+   }
+   
+   pre {
+    background-color:#EEEEEC;
+    font-size:10px;
+    margin-bottom:1.7em;
+    padding:5px;
+   }
+   
+   .light {
+    color:#D3D7CF;
+   }
+   
+   #wrapper {
+    margin:30px auto;
+    width:960px;
+   }
+   
+   #colOne, #colTwo {
+    float:left;
+   }
+   
+   #colOne {
+    width:342px;
+    margin-right:30px;
+   }
+   
+   #colTwo {
+    width:588px;
+   }
+   
+   .selectDisplay {
+    font-size:11px;
+    margin-top:5px;
+   }
+   
+   .medicine {
+    display:table;
+    list-style:none;
+    margin:0 auto;
+    padding:0;
+    text-align:center;
+   }
+   
+   .pill {
+    display:inline;
+   }
+   
+   .pill a {
+    background-image:url('demo_files/pillBG.png');
+    border-style:solid;
+    border-color:#BABDB6;
+    color:#888A85;
+    cursor:pointer;
+    display:block;
+    float:left;
+    font-size:11px;
+    font-family:'Arial', 'Helvetica', Sans;
+    line-height:11px;
+    padding:5px;
+   }
+   
+   .pill.left a {
+    border-width:1px;
+    border-radius:2px 0 0 2px;
+   }
+   
+   .pill.center a {
+    border-width:1px 1px 1px 0;
+    margin-left:1px
+   }
+   
+   .pill.right a {
+    border-width:1px 1px 1px 0;
+    border-radius:0 2px 2px 0;
+    margin-left:1px;
+   }
+   
+   .pill:hover a {
+    border-color:#AD7FA8;
+    border-width:1px;
+    color:#555753;
+    color:#555753;
+    margin-left:0;
+   }
+   
+   .pill.ui-tabs-selected {
+    font-weight:bold;
+   }
+   
+   .heading {
+    display:block;
+    font-family:'Gentium', 'Georgia', Serif;
+    font-size:26px;
+    margin-bottom:10px;
+   }
+   
+   .heading img {
+    display:inline;
+   }
+   
+   .sub {
+    display:block;
+    font-family:'Georgia', Serif;
+    font-size:20px;
+    margin-bottom:5px;
+   }
+   
+   .ui-tabs .ui-tabs-hide {
+    display: none;   
+   }
+   
+   .download {
+    background-image:url('demo_files/download.png');
+    background-repeat:no-repeat;
+    background-position:2px;
+    border:0;
+    display:inline-block;
+    font-family:'Arial', 'Helvetica', Sans;
+    margin:10px 0 0 10px;
+    padding-left:21px;
+   }
+  </style>
+  <script type="text/javascript" src="scripts/jQuery.js"></script>
+  <script type="text/javascript" src="scripts/jQuery.nowPlaying.js"></script>
+  <script type="text/javascript" src="demo_files/jQuery.color.js"></script>
+  <script type="text/javascript" src="demo_files/jQuery.ui.js"></script>
+  <script type="text/javascript">
+   $(document).ready(function() {
+    $("#lovedTracks").nowPlaying({
+     display:"lovedTracks"
+    });
+    
+    $("#topTracks").nowPlaying({
+     display:"topTracks"
+    });
+    
+    $("#recentTracks").nowPlaying({
+     display:"recentTracks",
+     username:'rxcjack'
+    });
+    
+    //$("p a").hover(function() {
+    // $(this).animate({
+    //  borderBottomColor:'#AD7FA8',
+    //  color:'#5C3566'
+    // });
+    //}, function() {
+    // $(this).animate({
+    //  borderBottomColor:'#5C3566',
+    //  color:'#AD7FA8'
+    // });
+    //});
+    
+    $(".tabbed").tabs({
+     selected: 2
+    });
+   });
+  </script>
+ </head>
+ <body>
+  <div id="wrapper">
+   <div id="colOne">
+    <div class="tabbed">
+     <div id="lovedTracks"></div>
+     <div id="topTracks"></div>
+     <div id="recentTracks"></div>
+     <ul class="medicine">
+      <li class="pill left"><a href="#lovedTracks">Loved</a></li>
+      <li class="pill center"><a href="#topTracks">Top</a></li>
+      <li class="pill right"><a href="#recentTracks">Recent</a></li>
+     </ul>
+    </div>
+   </div>
+   <div id="colTwo">
+    <span class="heading">
+     <strong>jQuery.nowPlaying</strong> <span class="light">| What are <em>you</em> listening to?</span>
+    </span>
+    <p>
+     Ever since humans have been around, we've loved music. In diverse places like America, the music itself becomes as diverse as the people. Thus we have many artists, many albums, and inevitably <em>many flavors</em> of music. So this common bond we all have slowly breaks apart as each person finds their musical taste. We then narrow down our music to smaller and more specifc standards - and we get bored of it. What next? Our love for music isn't gone - it's just time for something new. Luckily, we live in a world full of computers that can pretty much do everything except grow grain! Now <a href="http://last.fm">Last.FM</a> joins the picture: they take the music you've loved and show you more of the diverse world of music around you - based on the music you're accustomed too. So what does this all have to do with jQuery.nowPlaying? It's a script that makes it uber-easy to share <em>your</em> musical taste with the Guests on your website.
+    </p>
+    <p>
+     <span class="sub">
+      feature <strong>happy</strong> <span class="light">| We're loaded.</span>
+     </span>
+     <ul>
+      <li>Three awesome views: your loved (favorite) tracks, your top (most played) tracks, and your recent tracks.</li>
+      <li>What's playing right now? Your Guests now know while in "Recent Tracks" mode!</li>
+      <li>Easy setup: the layout is predefined and it only takes 6 lines of code to run it. Everything you'll ever need is included as well.</li>
+      <li>The worlds sexiest album artwork works out of the box. Your Guests might as well be convinced you're selling the music.</li>
+      <li>Everything is compressed &amp; ready for deployment. Do you have a dire need to change something? The sources are included as well.</li>
+     </ul>
+    </p>
+    <p>
+     <span class="sub">
+      download <span class="light">| Get it while it's hot!</span>
+     </span>
+     <a class="download" href="#">Download jQuery.nowPlaying</a>
+    </p>
+    <p>
+     <span class="sub">
+      <strong>install</strong> / usage <span class="light">| Just for you, Speedy.</span>
+     </span>
+     <ol>
+      <li>
+       You're going to need a Last.fm API key to use jQuery.nowPlaying. It's easy to get one, just login to Last.fm and <a href="http://www.last.fm/api/account">head on over to the API page</a>, where you'll be given a key. You may also want some scrobbled music, so there is something to display!
+      </li>
+      <li>
+       Include jQuery &amp; jQuery.nowPlaying in your page like so:
+       <!-- Code nesting fail =P -->
+       <pre>&lt;script type="text/javascript" src="scripts/jQuery.js"&gt;&lt;/script&gt;<br />&lt;script type="text/javascript" src="scripts/jQuery.nowPlaying.js"&gt;&lt;/script&gt;</pre>
+      </li>
+      <li>
+       Now, include the stylesheet:
+       <pre>&lt;link type="text/css" href="css/lfm_style.css" rel="stylesheet" /&gt;</pre>
+      </li>
+      <li>
+       Make jQuery.nowPlaying a nice, cozy home:
+       <pre>&lt;div class="nowPlaying"&gt;&lt;/div&gt;</pre>
+      </li>
+      <li>
+       Make it all happen:
+       <pre>&lt;script type="text/javascript"&gt;<br/> $(document).ready(function() {<br />  $(".nowPlaying").nowPlaying({<br />   apikey:'lastfm_apikey',<br />   username:'lastfm_username'<br />  });<br /> });<br />&lt;/script&gt;</pre>
+      </li>
+      <li>
+       There are a few optional settings as well -
+       <ul>
+        <li>
+         The `display` option allows you to choose the type of tracks to show. Here are the options:
+         <pre>   display:'lovedTracks', // Show "loved" tracks</pre>
+         <pre>   display:'topTracks', // Show "top" tracks</pre>
+         <pre>   display:'recentTracks', // Show "recent" tracks. Default.</pre>
+        </li>
+        <li>
+         The `number` option allows you to select the number of tracks shown. There is a maximum of 50 tracks:
+         <pre>   number:20, // Show 20 tracks</pre>
+        </li>
+       </ul>
+      </li>
+     </ol>
+    </p>
+    <p>
+     <span class="sub">
+      about <span class="light">| whodoneit?</span>
+     </span>
+     jQuery.nowPlaying is derived from the jQuery Last.fm Plugin by Engage Interactive. It's written by Kyle Hotchkiss Productions and released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT Licence</a> (Have some fun - make it better!). Have you found a bug, or do you have something to add? Check us out on GitHub!
+    </p>
+   </div>
+  </div>
+ </body>
+</html>

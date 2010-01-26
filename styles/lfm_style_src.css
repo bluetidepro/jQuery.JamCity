@@ -1,0 +1,119 @@
+/*
+ * jQuery.nowPlaying by Kyle Hotchkiss Productions.
+ * Copyright (c) 2010 Kyle Hotchkiss Productions.
+ * Version: 1.0 (25-JAN-2010)
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+ 
+div.lfm_track {
+ background-color:#EEEEEC;
+ border:1px solid #D3D7CF;
+ border-radius:10px;
+ -moz-border-radius:10px;
+ -webkit-border-radius:10px;
+ color:#888A85;
+ font-size:11px;
+ font-family:'Helvetica', 'Arial', Sans;
+ margin-bottom:10px;
+ padding:10px;
+ text-shadow:0 1px 1px #FFFFFF;
+ width:320px;
+}
+
+div.lfm_track a { /* Compat fix */
+ border:0;
+}
+
+div.lfm_track div.lfm_art { /* Default */
+ background-image:url('../images/lfm_images.png');
+ background-position:0 0;
+ background-repeat:no-repeat;
+ float:left;
+ height:64px;
+ margin:4px 11px;
+ width:64px;
+ z-index:1;
+}
+
+div.lfm_track div.lfm_art img {
+ height:64px;
+ overflow:hidden;
+ position:absolute;
+ width:64px;
+ z-index:2;
+}
+
+div.lfm_track div.lfm_art a { /* Overlay */
+ background-image:url('../images/lfm_images.png');
+ background-position:0 -180px;
+ height:74px;
+ margin:-4px 0 0 -11px;
+ position:absolute;
+ width:81px;
+ z-index:4;
+}
+
+div.lfm_track div.lfm_art div.lfm_status { /* Status Image (Playing / Loved) */
+ height:16px;
+ margin-left:44px;
+ margin-top:46px;
+ position:absolute;
+ width:16px;
+ z-index:3;
+}
+
+div.lfm_track div.lfm_art div.lfm_status.loved {
+ background-image:url('../images/lfm_images.png');
+ background-repeat:no-repeat;
+ background-position:0 -114px;
+}
+
+div.lfm_track div.lfm_art div.lfm_status.playing {
+ background-image:url('../images/lfm_images.png');
+ background-repeat:no-repeat;
+ background-position: 0 -304px;
+}
+
+div.lfm_track div.lfm_float {
+ float:left;
+}
+
+div.lfm_track div.lfm_song {
+ font-size:13px;
+ font-weight:bold;
+ overflow:hidden;
+ white-space:nowrap;
+ width:224px;
+}
+
+div.lfm_track div.lfm_artist {
+ overflow:hidden;
+ white-space:nowrap;
+ width:224px;
+}
+
+div.lfm_track div.lfm_album {
+ overflow:hidden;
+ white-space:nowrap;
+ width:224px;
+}
+
+div.lfm_track span.lfm_enlighten {
+ color:#BABDB6;
+ padding-right:5px;
+}
+
+div.lfm_track div.lfm_fade { /* Make hiding text un-extreme */
+ background-image:url('../images/lfm_fade.png');
+ background-repeat:repeat-y;
+ background-position:top right;
+ height:74px;
+ position:absolute;
+ width:225px;
+ z-index:2;
+}
+
+div.lfm_track div.lfm_clear {
+ clear:both;
+}

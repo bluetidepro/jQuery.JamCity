@@ -1,77 +1,12 @@
 /*
- * jQuery.nowPlaying by Engage Interactive & Kyle Hotchkiss Productions
- * Copyright (c) 2009 - 2010 EI/KHP
- * Version: 1.1 (21-JAN-2010)
- * Dual licensed under the MIT and GPL licenses:
+ * jQuery.nowPlaying by Kyle Hotchkiss Productions.
+ * Copyright (c) 2010 Kyle Hotchkiss Productions.
+ * Version: 1.0 (25-JAN-2010)
+ * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
- * Requires: jQuery v1.3 or later
+ * Portions of code derived from "Last.fm Plugin for jQuery"
+ * http://labs.engageinteractive.co.uk/lastfm/
+ * Requires: jQuery v1.3 or later & a Last.fm API key.
  */
-
-(function($) {
- $.fn.nowPlaying = function(options) {
-  var defaults = {
-   number:3,
-   username:'kylehotchkiss',
-   apikey:'please_insert_api',
-   artSize:'medium',
-   noart:'images/noart.png',
-   onComplete: function() {}
-  },
  
-  settings = $.extend({}, defaults, options);
- 
-  var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user='+settings.username+'&api_key='+settings.apikey+'&limit='+settings.number+'&format=json&callback=?';
-  var $this = $(this);
- 
-  var container = $this.html();
-  $this.children(':first').remove();
-  if(settings.artSize == 'small'){imgSize = 0}
-  if(settings.artSize == 'medium'){imgSize = 1}
-  if(settings.artSize == 'large'){imgSize = 2}
-
-  this.each(function() {
-   $.getJSON(lastUrl, function(data) { 
-    $.each(data.recenttracks.track, function(i, item) {
-     if(i > (settings.number-1)) return false; // Take the "Number" setting more literally. 
-    
-     // This is the "Now Playing" dectector. 
-     if ($(this).attr("@attr")) {
-      var playing = 1;
-     }
-   
-     if (item.image[1]['#text'] == '') { 
-      art = settings.noart;
-     } else {
-      art = stripslashes(item.image[imgSize]['#text']);
-     }
-   
-     url = stripslashes(item.url);
-     song = item.name;
-     artist = item.artist['#text'];
-     album = item.album['#text'];
-     $this.append(container);
-     var $current = $this.children(':eq('+i+')');
-     $current.find('[class=lfm_song]').append(song);
-     $current.find('[class=lfm_artist]').append(artist);
-     $current.find('[class=lfm_album]').append(album);
-     if (playing == '1') {
-      $current.find('[class=lfm_playing]').show();
-     }
-   
-     $current.find('[class=lfm_art]').append("<img src='"+art+"' />");
-     $current.find('a').attr('href', url).attr('title', 'Listen to '+song+' on Last.FM').attr('target', '_blank');
-
-     if(i==(settings.number-1)) { 
-      settings.onComplete.call(this);
-     }
-    });
-   });
-  });
- };
- 
- //Clean up the URLs
- function stripslashes( str ) {	 
-  return (str+'').replace(/\0/g, '0').replace(/\\([\\'"])/g, '$1');
- }
-})(jQuery);
+(function(b){b.fn.nowPlaying=function(e){var h={apikey:"e2cf0e44284d27c9448a4f183e371634",artSize:"medium",display:"recentTracks",number:5,username:"kylehotchkiss",onComplete:function(){}},f=b.extend({},h,e);if(f.display=="lovedTracks"){var c="http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user="+f.username+"&api_key="+f.apikey+"&limit="+f.number+"&format=json&callback=?"}else{if(f.display=="topTracks"){var c="http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user="+f.username+"&api_key="+f.apikey+"&format=json&callback=?"}else{var c="http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user="+f.username+"&api_key="+f.apikey+"&limit="+f.number+"&format=json&callback=?"}}var g=b(this);var d=g.html();g.children(":first").remove();if(f.artSize=="small"){imgSize=0}if(f.artSize=="medium"){imgSize=1}if(f.artSize=="large"){imgSize=2}this.each(function(){b.getJSON(c,function(i){if(f.display=="lovedTracks"){b.each(i.lovedtracks.track,function(j,m){if(j>(f.number-1)){return false}var l=false;if(b(this).attr("error")){b(this).html("An error has occured")}if(m.image){var l=true;art=a(m.image[imgSize]["#text"])}url=a(m.url);song=m.name;artist=m.artist.name;g.append(d);g.append('<div class="lfm_track"></div>');var k=g.children(":eq("+j+")");k.html('<div class="lfm_art"><a href="http:\\\\'+url+'" title="Listen to '+song+' on Last.FM" target="_blank"></a><div class="lfm_status loved"></div></div><div class="lfm_float"><div class="lfm_fade"></div><div class="lfm_song">'+song+'</div><div class="lfm_artist"><span class="lfm_enlighten">by:</span>'+artist+'</div></div><div class="lfm_clear"></div>');if(l){k.find("[class=lfm_art]").append("<img src='"+art+"' />")}if(j==(f.number-1)){f.onComplete.call(this)}})}else{if(f.display=="topTracks"){b.each(i.toptracks.track,function(j,m){if(j>(f.number-1)){return false}var l=false;if(b(this).attr("error")){b(this).html("An error has occured")}if(m.image){var l=true;art=a(m.image[imgSize]["#text"])}url=a(m.url);song=m.name;artist=m.artist.name;g.append(d);g.append('<div class="lfm_track"></div>');var k=g.children(":eq("+j+")");k.html('<div class="lfm_art"><a href="'+url+'" title="Listen to '+song+' on Last.FM" target="_blank"></a><div class="lfm_status"></div></div><div class="lfm_float"><div class="lfm_fade"></div><div class="lfm_song">'+song+'</div><div class="lfm_artist"><span class="lfm_enlighten">by:</span>'+artist+'</div></div><div class="lfm_clear"></div>');if(l){k.find("[class=lfm_art]").append("<img src='"+art+"' />")}if(j==(f.number-1)){f.onComplete.call(this)}})}else{b.each(i.recenttracks.track,function(k,o){if(k>(f.number-1)){return false}var n,m=false;if(b(this).attr("error")){b(this).html("An error has occured")}if(b(this).attr("@attr")){var j=true}if(!o.image[1]["#text"]==""){var m=true;art=a(o.image[imgSize]["#text"])}url=a(o.url);song=o.name;artist=o.artist["#text"];album=o.album["#text"];g.append(d);g.append('<div class="lfm_track"></div>');var l=g.children(":eq("+k+")");l.html('<div class="lfm_art"><a href="'+url+'" title="Listen to '+song+' on Last.FM" target="_blank"></a><div class="lfm_status"></div></div><div class="lfm_float"><div class="lfm_fade"></div><div class="lfm_song">'+song+'</div><div class="lfm_artist"><span class="lfm_enlighten">by:</span>'+artist+'</div><div class="lfm_album"></div></div><div class="lfm_clear"></div>');if(j=="1"){l.find("[class=lfm_status]").addClass("playing")}if(album!=""){l.find("[class=lfm_album]").html('<span class="lfm_enlighten">from:</span>'+album)}if(m){l.find("[class=lfm_art]").append("<img src='"+art+"' />")}if(k==(f.number-1)){f.onComplete.call(this)}})}}})})};function a(c){return(c+"").replace(/\0/g,"0").replace(/\\([\\'"])/g,"$1")}})(jQuery);
