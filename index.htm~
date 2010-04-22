@@ -60,7 +60,7 @@
      <strong>jQuery.nowPlaying</strong> <span class="light">| What are <em>you</em> listening to?</span>
     </span>
     <p>
-     Do you love use &amp; <a href="http://last.fm">Last.fm</a>? Do you want to show off all the music you listen to? You've came to the right place then! jQuery.nowPlaying allows you to show off the music you just listened to like it's bling or something. As you can see to the left, I have an odd musical taste. And you didn't have to meet me to learn this... How cool is that?
+     Ever since humans have been around, we've loved music. In diverse places like America, the music itself becomes as diverse as the people. Thus we have many artists, many albums, and inevitably <em>many flavors</em> of music. So this common bond we all have slowly breaks apart as each person finds their musical taste. We then narrow down our music to smaller and more specifc standards - and we get bored of it. What next? Our love for music isn't gone - it's just time for something new. Luckily, we live in a world full of computers that can pretty much do everything except grow grain! Now <a href="http://last.fm">Last.FM</a> joins the picture: they take the music you've loved and show you more of the diverse world of music around you - based on the music you're accustomed too. So what does this have to do with jQuery.nowPlaying? It's a script that makes it uber-easy to share <em>your</em> Last.fm musical taste (via our favorite JavaScript library - jQuery!) with the Guests on your website. Need a demo? Just look to your left, silly!
     </p>
     <p>
      <span class="sub">
