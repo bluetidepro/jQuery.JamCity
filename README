@@ -8,15 +8,15 @@
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
- To keep the package light and development simple,
- visit http://code.kylehotchkiss.com/nowplaying for 
- examples and instructions. Also, send all your 
- feedback to hello@kylehotchkiss.com, as I do want 
- to make it as epic as possible =D. 
+ To keep the package light and development simple, visit 
+ http://code.kylehotchkiss.com/nowplaying for examples and 
+ instructions. Also, send all your feedback to 
+ hello@kylehotchkiss.com, as I do want to make it as epic 
+ as possible =D. 
 
- As a disclaimer, jQuery.nowPlaying isn't as simple 
- as it could be, but nonetheless here is a quick 
- rundown on installation (remember the URL works too):
+ As a disclaimer, jQuery.nowPlaying isn't as simple as it 
+ could be, but nonetheless here is a quick rundown on 
+ installation (remember the URL works too):
 
  1. Include jQuery and jQuery.nowPlaying in your page.
     
@@ -41,7 +41,7 @@
     then head on over to the $.nowPlaying home page.)
    
  4. Enjoy your guests reactions to your inevitable love
- s   for Miley Cyrus and Brittney Spears.
+    for Miley Cyrus and Brittney Spears.
  
  
 
