@@ -1,37 +1,47 @@
-To keep the package light and development simple,
-visit http://code.kylehotchkiss.com/nowplaying for 
-examples and instructions. Also, send all your 
-feedback to hello@kylehotchkiss.com, as I do want 
-to make it as epic as possible =D. 
 
-As a disclaimer, jQuery.nowPlaying isn't as simple 
-as it could be, but nonetheless here is a quick 
-rundown on installation (remember the URL works too):
+ jQuery.nowPlaying : What are you listening to? v. 1.1
+ Copyright (c) 2010 Kyle Hotchkiss [Productions].
+ Dual licensed under the MIT and GPL licenses.
 
-1. Include jQuery and jQuery.nowPlaying in your page.
-   
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <script type="text/javascript" src="scripts/jQuery.nowPlaying"></script>
+ Portions of code derived from "Last.fm Plugin for jQuery"
+ http://labs.engageinteractive.co.uk/lastfm/
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ To keep the package light and development simple,
+ visit http://code.kylehotchkiss.com/nowplaying for 
+ examples and instructions. Also, send all your 
+ feedback to hello@kylehotchkiss.com, as I do want 
+ to make it as epic as possible =D. 
+
+ As a disclaimer, jQuery.nowPlaying isn't as simple 
+ as it could be, but nonetheless here is a quick 
+ rundown on installation (remember the URL works too):
+
+ 1. Include jQuery and jQuery.nowPlaying in your page.
     
-2. Initialize it. 
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+     <script type="text/javascript" src="scripts/jQuery.nowPlaying"></script>
+     
+ 2. Initialize it.  
 
-    <script type="text/javascript"> 
-     $(document).ready(function() { 
-      $(".nowplaying").nowPlaying({ 
-       apiKey:'your-api-key', // You'll have to get it off Last.FM.
-       username:'your-last.fm-username' 
+     <script type="text/javascript"> 
+      $(document).ready(function() { 
+       $(".nowplaying").nowPlaying({ 
+        apiKey:'your-api-key', // You'll have to get it off Last.FM.
+        username:'your-last.fm-username' 
+       }); 
       }); 
-     }); 
-    </script> 
-    
-    <div class="nowplaying"></div> <!-- Hint: It's gonna put some songs in that div -->
+     </script> 
+     
+     <div class="nowplaying"></div> <!-- Hint: It's gonna put some songs in that div --> 
 
-3. Have fun styling it! (Use the inspector to get the
-   structure, if you need context to those div titles
-   then head on over to the $.nowPlaying home page.)
+ 3. Have fun styling it! (Use the inspector to get the
+    structure, if you need context to those div titles
+    then head on over to the $.nowPlaying home page.)
    
-4. Enjoy your guests reactions to your inevitable love
-   for Miley Cyrus and Brittney Spears.
+ 4. Enjoy your guests reactions to your inevitable love
+ s   for Miley Cyrus and Brittney Spears.
  
  
 
