@@ -1,11 +1,8 @@
 /**
  *
- * jQuery.nowPlaying : What are you listening to? v. 1.1
- * Copyright (c) 2010 Kyle Hotchkiss [Productions].
- * Dual licensed under the MIT and GPL licenses.
- *
- * Portions of code derived from "Last.fm Plugin for jQuery"
- * http://labs.engageinteractive.co.uk/lastfm/
+ * jQuery.nowPlaying : What are you listening to? v. 1.12
+ * Copyright (c) 2010 Kyle Hotchkiss Productions.
+ * Released under the GPL licence.
  *
  */
 
@@ -23,7 +20,7 @@
   settings = $.extend({}, defaults, options);
   
   //
-  // Stupidproofing is the name of the game.
+  // Failsafes.
   //
   if (settings.apiKey == "" ) {
    debug("Please enter a valid API key.");
@@ -46,7 +43,7 @@
   }
  
   //
-  // Get some paperwork out of the way.
+  // Variables
   //
   var $this = $(this);
   
@@ -63,7 +60,7 @@
   }
    
   // 
-  // Get that data. (Do the Dew.)
+  // Get the data 
   //
   $.getJSON(lastUrl, function(data) { 
    if ( settings.display == "lovedTracks" ) {
@@ -74,7 +71,7 @@
      var displayArt = false;
     
      if ( $(this).attr("error") ) {
-      $(this).html("An error has occured");
+      $(this).html("An error has occurred");
       debug( $(this).attr("message") );
      }
       
@@ -86,12 +83,11 @@
      url = stripslashes(item.url);
      song = item.name;
      artist = item.artist['name'];
-     //$this.append(container);
      $this.append("<div class=\"lfm_track\"></div>");
      var $current = $this.children(':eq('+i+')');
      $current.html(
       "<div class=\"lfm_art\">" +  
-       "<a href=\"http:\\\\" + url +"\" title=\"Listen to " + song + " on Last.FM\" target=\"_blank\">" + "</a>" + // There is no rhyhme or reason here.
+       "<a href=\"http:\\\\" + url +"\" title=\"Listen to " + song + " on Last.FM\" target=\"_blank\">" + "</a>" + // There is no rhyme or reason here.
       "</div>" +
       "<div class=\"lfm_float\">" +
        "<div class=\"lfm_status loved\">" + "</div>" +       
@@ -120,7 +116,7 @@
      var displayArt = false;
      
      if ( $(this).attr("error") ) {
-      $(this).html("An error has occured");
+      $(this).html("An error has occurred");
       debug( $(this).attr("message") );
      }
    
@@ -165,11 +161,11 @@
      var nowplaying, displayArt = false;
      
      if( $(this).attr("error") ) {
-      $(this).html("An error has occured");
+      $(this).html("An error has occurred");
       debug( $(this).attr("message") );
      }
      
-     // This is the "Now Playing" dectector. 
+     // This is the "Now Playing" detector. 
      if ( $(this).attr("@attr") ) {
       var playing = true;
      }
@@ -204,7 +200,7 @@
      }
       
      if ( album != '' ) {
-      $current.find('[class=lfm_album]').html("<span class=\"lfm_enlighten\">" + "from:" + "</span>" + album); // Lmao, this is OD, Last.fm
+      $current.find('[class=lfm_album]').html("<span class=\"lfm_enlighten\">" + "from:" + "</span>" + album);
       }
    
      if ( displayArt ) {
@@ -219,11 +215,14 @@
   });
  };
  
- function stripslashes( str ) {	// Clean up the URLs
+ //
+ // Helper functions.
+ // 
+ function stripslashes( str ) {
   return (str+'').replace(/\0/g, '0').replace(/\\([\\'"])/g, '$1');
  }
  
- function debug( error ) { // Production-Level debug
+ function debug( error ) { 
   if ( typeof console == 'object' )
    console.log( error );
 
