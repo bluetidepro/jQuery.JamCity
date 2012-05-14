@@ -8,6 +8,10 @@
 
 * * *
 
+## jQuery.JamCity // Demos
+
+You can find [jQuery.JamCity demos here](http://bluetidepro.github.com/jQuery.JamCity/).
+
 ## jQuery.JamCity // Information
 
 jQuery.JamCity uses the API from [Last.Fm](http://www.last.fm/api) to get your Last.Fm account top albums (*Last.Fm api:* `getTopAlbums`), loved tracks (*Last.Fm api:* `getLovedTracks`), top tracks (*Last.Fm api:* `getTopTracks`), new releases (*Last.Fm api:* `getNewReleases`), or recent tracks (*Last.Fm api:* `getRecentTracks`). It then takes that information and displays a **beautiful** layout using CSS3, jQuery, etc. Enjoy showing off your music on your blog or website!
@@ -16,49 +20,49 @@ jQuery.JamCity uses the API from [Last.Fm](http://www.last.fm/api) to get your L
 
 First, include the jQuery library, jQuery.JamCity javascript (<em>jQuery.JamCity.js</em> or <em>jQuery.JamCity.min.js</em>) and the jQuery.JamCity CSS (<em>jmc_styles.css</em>) on the page(s) where you want to use jQuery.JamCity.
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-		<script src="jQuery.JamCity.js" type="text/javascript"></script>
-		<link rel="stylesheet" href="css/jmc_styles.css" type="text/css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="jQuery.JamCity.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="css/jmc_styles.css" type="text/css">
 
 Then, add a container div with an ID to your HTML so we can output jQuery.JamCity somewhere.
 
-		<div id="JMC_Container"></div>
+	<div id="JMC_Container"></div>
 
 Then, initialize jQuery.JamCity. Put the following code before the closing tag of your body ().
 
-		<script type="text/javascript" charset="utf-8">
-			$(document).ready(function(){
-				$("#JMC_Container").JamCity({ 
-					apiKey: '',
-					username: 'bluetidepro' 
-				});
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			$("#JMC_Container").JamCity({ 
+				apiKey: '',
+				username: 'bluetidepro' 
 			});
-		</script>
+		});
+	</script>
 
 ## jQuery.JamCity // Usage
 
-		$("#demo1").JamCity(
-			{ 
-				apiKey: '',
-				username: '',
-				contentType: '',
-				artSize: '',
-      			artQuality: 'normal',
-				number: 5,
-				tooltips: true,
-				nowPlayingIcon: true,
-				_blankLinks: true,
-				noAlbumArtImg:'http://placehold.it/126x126&text=No Art',
-				cssWrapperID: 'jmc_wrap',
-				cssThemeClass: 'jmc_dark_theme',
-				noLovedTracks: 'Sorry, No loved tracks...',
-				noTopAlbums: 'Sorry, No top albums...',
-				noTopTracks: 'Sorry, No top tracks...',
-				noNewReleases: 'Sorry, No new releases...',
-				noRecentTracks: 'Sorry, No recent tracks...',
-				onComplete: function () {
-				}
-		});
+	$("#demo1").JamCity(
+		{ 
+			apiKey: '',
+			username: '',
+			contentType: '',
+			artSize: '',
+  			artQuality: 'normal',
+			number: 5,
+			tooltips: true,
+			nowPlayingIcon: true,
+			_blankLinks: true,
+			noAlbumArtImg:'http://placehold.it/126x126&text=No Art',
+			cssWrapperID: 'jmc_wrap',
+			cssThemeClass: 'jmc_dark_theme',
+			noLovedTracks: 'Sorry, No loved tracks...',
+			noTopAlbums: 'Sorry, No top albums...',
+			noTopTracks: 'Sorry, No top tracks...',
+			noNewReleases: 'Sorry, No new releases...',
+			noRecentTracks: 'Sorry, No recent tracks...',
+			onComplete: function () {
+			}
+	});
 
 ## jQuery.JamCity // Configuration Settings
 
@@ -136,15 +140,15 @@ Then, initialize jQuery.JamCity. Put the following code before the closing tag o
 
 ## jQuery.JamCity // Each Item HTML Output
 
-		<li class="jmc_track">
-			<a href="{Track Link}" title="{name} by {artist}" target="_blank">
-			  <span class="jmc_album_art"><img src="{album art}" alt="{name} by {artist}">></span>
-			  <span class="jmc_vinyl_case"></span>
-			  <span class="jmc_vinyl_slip"></span>
-			  <span class="jmc_vinyl"></span>
-			  <div class="jmc_tooltip_wrap">{name} by {artist}<span class="jmc_tooltip_arrow_down"></span></div>
-			</a>
-		</li>
+	<li class="jmc_track">
+		<a href="{Track Link}" title="{name} by {artist}" target="_blank">
+		  <span class="jmc_album_art"><img src="{album art}" alt="{name} by {artist}">></span>
+		  <span class="jmc_vinyl_case"></span>
+		  <span class="jmc_vinyl_slip"></span>
+		  <span class="jmc_vinyl"></span>
+		  <div class="jmc_tooltip_wrap">{name} by {artist}<span class="jmc_tooltip_arrow_down"></span></div>
+		</a>
+	</li>
 
 ## jQuery.JamCity // FAQ
 
