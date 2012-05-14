@@ -1,0 +1,61 @@
+/**
+*
+* jQuery.JamCity : v. 1.0
+* https://github.com/bluetidepro/jQuery.JamCity
+* Copyright (c) 2012 Zach Reed (Blue Tide Productions, LLC).
+* Dual licensed under the MIT and GPL licenses.  
+*
+*/ 
+
+/* CSS reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {margin:0; padding:0; border:0; font-size:100%; font:inherit; vertical-align:baseline;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
+blockquote, q {quotes:none}
+blockquote:before, blockquote:after, q:before, q:after {content:''; content:none;}
+table {border-collapse:collapse; border-spacing:0;}
+
+/* Typography and main styles */
+body {font-family:'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, "Lucida Grande", sans-serif; font-size:12px; color:#4a4a4a; -webkit-font-smoothing:antialiased; -webkit-text-size-adjust:none; line-height:20px; background:#fff;}
+h1, h2, h3, h4, h5, h6 {font-family:'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, "Lucida Grande", sans-serif; clear:both; font-weight:bold; display:block; float:left; color:#333; position:relative; margin-bottom:10px; line-height:1;}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {font-weight:inherit;}
+h1 {font-size:40px;}
+h2 {font-size:30px;}
+h3 {font-size:20px; margin-left:10px;}
+.subheader {color:#777;}
+p {clear:both; margin-bottom:0;}
+em {font-style:italic;}
+strong {font-weight:bold;}
+.small {font-size:80%;}
+.colored {color:#2C77BA;}
+img {display:block; height:auto; max-width:100%;}
+a, a:visited {text-decoration:underline; color:#2A5E7B;}
+a:hover{color:#103042;}
+a:hover {color:#444; text-decoration:none;}
+|:-moz-any-link:focus {outline:none;}
+|:focus {outline:none;}
+a:active, a:focus, button {border:none; outline:none;}
+span.ampersand {font-family: Baskerville, Palatino, "Book Antiqua", serif; font-style: italic; font-weight: normal;}
+em{font-style:italic;}
+pre{clear:both; float:left; font-family: consolas, courier, monospace; width:100%; display:block; margin:5px 11px 15px 11px; font-size: 1em; line-height: 1.5em; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; background-color: #efeeee; color: #000; border-left: 5px solid #afafaf; padding: 10px 0; text-align:left;}
+
+/* Demo */
+#content{width:890px; margin:20px auto; padding:0;}
+h1.header span, h1.header span a{font-size:18px;}
+hr{clear:both; display:block; width:100%; margin:15px auto; float:left;}
+h3 em{font-size:14px; position: relative; top:-2px;}
+ul{margin-left:10px; float:left; width:100%;}
+ul li{width:100%; list-style:disc; margin:4px 0 10px 30px; list-style-position: outside;}
+ul li pre{float:none; display: inline-block; border:none; padding: 0 2px; width:auto; clear:none; margin:0; font-weight:bold;}
+ul li p span{font-family: consolas, courier, monospace; background-color: #efeeee; color: #000;}
+ul li p{margin-top:2px;}
+
+/* Helper classes */
+.hidden {display:none !important; visibility:hidden;}
+.align-right {text-align:right;}
+.align-center {text-align:center;}
+.float-left {float:left;}
+.float-right {float:right;}
+.clearfix:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;}
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix {display: block;}
+* html .clearfix {height: 1%;}
