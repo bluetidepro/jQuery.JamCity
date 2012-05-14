@@ -1,74 +1,297 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Jquery.jamcity : jQuery.JamCity uses the API from Last.Fm to pull your Last.Fm account info, tracks, albums, etc! See the readme file below." />
+  <title>Demo - jQuery.JamCity</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+  <!-- Stylesheet for Demo -->
+  <link rel="stylesheet" href="https://raw.github.com/bluetidepro/jQuery.JamCity/master/css/demo.css" type="text/css">
 
-    <title>Jquery.jamcity</title>
-  </head>
+  <!-- Stylesheet for jQuery.JamCity -->
+  <link rel="stylesheet" href="https://raw.github.com/bluetidepro/jQuery.JamCity/master/css/jmc_styles.css" type="text/css" charset="utf-8">
+</head>
+<body>
+<div id="content">
+  <h1 class="header"><a href="https://github.com/bluetidepro/jQuery.JamCity">jQuery.JamCity</a> Documentation <span>by <a href="http://iamzachreed.com/" title="Zach Reed">Zach Reed</a></span></h1>
+  <hr/>
+  <p>jQuery.JamCity : v. 1.0</p>
+  <p>Copyright (c) 2012 Zach Reed [Blue Tide Productions, LLC]. </p>
+  <p>Dual licensed under the MIT and GPL licenses.</p>
+  <hr />
+  <h2>Table of contents</h2>
+  <ul class="clearfix">
+    <li><a href="#GettingStarted" title="GettingStarted">Getting Started</a></li>
+    <li><a href="#Usage" title="Usage">Usage</a></li>
+    <li><a href="#Demos" title="Demos">Demos</a></li>
+    <li><a href="#FAQ" title="FAQ">FAQ</a></li>
+    <li><a href="#Info" title="More info, and contact">More info, and contact</a></li>
+  </ul>
+  <hr />
+  <p><strong>Please do not use my API key <em>(</strong>c5d7bcc2600127f2c24e5b50c5f8ea5a<strong>)</em> on your site. This API key is used only for demo purposes. You can generate your own key, for free, <a href="here http://www.last.fm/api/account" title="Last.FM API Key">here http://www.last.fm/api/account</a>! Thank you!</strong></p>
+  <hr />
+  <h2 id="GettingStarted">Getting Started</h2>
+  <p>First, include the jQuery library, jQuery.JamCity javascript (<em>jQuery.JamCity.js</em> or <em>jQuery.JamCity.min.js</em>) and the jQuery.JamCity CSS (<em>jmc_styles.css</em>) on the page(s) where you want to use jQuery.JamCity.</p>
+  <pre>  &#8249;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"&#8250;&#8249;/script&#8250;
+  &#8249;script src="jQuery.JamCity.js" type="text/javascript"&#8250;&#8249;/script&#8250;
+  &#8249;link rel="stylesheet" href="css/jmc_styles.css" type="text/css"&#8250;</pre>
+  <p>Then, add a container div with an ID to your HTML so we can output jQuery.JamCity somewhere.</p>
+  <pre>  &#8249;div id="JMC_Container"&#8250;&#8249;/div&#8250;</pre>
+  <p>Then, initialize jQuery.JamCity. Put the following code before the closing tag of your body ().</p>
+  <pre>  &#8249;script type="text/javascript" charset="utf-8"&#8250;
+    $(document).ready(function(){
+       $("#JMC_Container").JamCity({ 
+         apiKey: '',
+         username: 'bluetidepro' 
+       });
+    });
+  &#8249;/script&#8250;</pre>
+  <hr />
+  <h2 id="Usage">Usage</h2>
+  <pre>  $("#demo1").JamCity({ 
+      apiKey: '',
+      username: '',
+      contentType: '',
+      artSize: '',
+      artQuality: 'normal'
+      number: 5,
+      tooltips: true,
+      nowPlayingIcon: true,
+      _blankLinks: true,
+      noAlbumArtImg:'http://placehold.it/126x126&text=No Art',
+      cssWrapperID: 'jmc_wrap',
+      cssThemeClass: 'jmc_dark_theme',
+      noLovedTracks: 'Sorry, No loved tracks...',
+      noTopAlbums: 'Sorry, No top albums...',
+      noTopTracks: 'Sorry, No top tracks...',
+      noNewReleases: 'Sorry, No new releases...',
+      noRecentTracks: 'Sorry, No recent tracks...',
+      onComplete: function () {
+      }
+  });</pre>
+  <h3>Configuration Settings</h3>
+  <ul class="clearfix">
+    <li><pre>apiKey</pre>
+    <p>Your Last.fm API key. You can get this easily setup here: <a href="http://www.last.fm/api/account">http://www.last.fm/api/account</a>.</p></li>
 
-  <body>
+    <li><pre>username</pre>
+    <p>Your Last.fm username.</p></li>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/bluetidepro/jQuery.JamCity">View on GitHub</a>
+    <li><pre>contentType</pre>
+    <p>Content to display. Defaults to <span>`recentTracks`</span>. Variables: <span>`lovedTracks`</span> (Your Loved Tracks), <span>`topAlbums`</span> (Your Top Albums), <span>`topTracks`</span> (Your Top Tracks), <span>`newReleases`</span> (Your New Releases), <span>`recentTracks`</span> (Your Recent Tracks).</p></li>
 
-          <h1 id="project_title">Jquery.jamcity</h1>
-          <h2 id="project_tagline">jQuery.JamCity uses the API from Last.Fm to pull your Last.Fm account info, tracks, albums, etc! See the readme file below.</h2>
+    <li><pre>artSize</pre>
+    <p>Output album art size. Defaults to <span`>medium`</span>. Variables: <span>`sm`</span> or <span>`small`</span>, <span>`md`</span> or <span>`medium`</span>, <span>`lg`</span> or <span>`large`</span>.</p></li>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/bluetidepro/jQuery.JamCity/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/bluetidepro/jQuery.JamCity/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+    <li><pre>artQuality</pre> - <strong><em>Default:</strong> 'normal'</em>
+    <p>Output album art quality. Defaults to `normal`. Variables: <span>`normal`</span>, <span>`high`</span>, or <span>`extreme`</span>. <strong>(NOTE: Choosing `high` or `extreme` may slow load speed)</strong></p></li>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+    <li><pre>number</pre> - <strong><em>Default:</strong> '5'</em>
+    <p>Number of tracks to display. Defaults to 5.</p></li>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+    <li><pre>tooltips</pre> - <strong><em>Default:</strong> 'true'</em>
+    <p>Do you want to use tooltips? Defaults to <span>`true`</span>. Variables: <span>`true`</span> or <span>`false`</span>.</p></li>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+    <li><pre>nowPlayingIcon</pre> - <strong><em>Default:</strong> 'true'</em>
+    <p>Do you want to see the "Now Playing" equalizer icon if that value exists? Defaults to <span>`true`</span>. Variables: <span>`true`</span> or <span>`false`</span>.</p></li>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+    <li><pre>_blankLinks</pre></strong> - <strong><em>Default:</strong> 'true'</em>
+    <p>Do you want links to open in a new window? Defaults to <span>`true`</span>. Variables: <span>`true`</span> or <span>`false`</span>.</p></li>
 
-<h3>Designer Templates</h3>
+    <li><pre>noAlbumArtImg</pre></strong> - <strong><em>Default:</strong> 'http://placehold.it/126x126&amp;text=No Art'</em>
+    <p>Default image to use if there is no album art for the track.</p></li>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+    <li><pre>cssWrapperID</pre></strong> - <strong><em>Default:</strong> 'jmc_wrap'</em>
+    <p>CSS ID for <span>`UL`</span> wrapper. Defaults to <span>`jmc_wrap`</span>. <strong>(NOTE: If you change this, be sure to update your CSS file.)</strong></p></li>
 
-<h3>Rather Drive Stick?</h3>
+    <li><pre>cssThemeClass</pre></strong> - <strong><em>Default:</strong> 'jmc_dark_theme'</em>
+    <p>CSS theme to use. Defaults to <span>`jmc_dark_theme`</span>. Variables: <span>`jmc_dark_theme`</span> or <span>`jmc_light_theme`</span>. <strong>(NOTE: If you change this, be sure to update your CSS file.)</strong></p></li>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+    <li><pre>noLovedTracks</pre></strong> - <strong><em>Default:</strong> 'Sorry, No loved tracks...'</em>
+    <p>Text to display when there is no loved tracks.</p></li>
 
-<h3>Authors and Contributors</h3>
+    <li><pre>noTopAlbums</pre></strong> - <strong><em>Default:</strong> 'Sorry, No top albums...'</em>
+    <p>Text to display when there is no top albums.</p></li>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+    <li><pre>noTopTracks</pre></strong> - <strong><em>Default:</strong> 'Sorry, No top tracks...'</em>
+    <p>Text to display when there is no top tracks.</p></li>
 
-<h3>Support or Contact</h3>
+    <li><pre>noNewReleases</pre></strong> - <strong><em>Default:</strong> 'Sorry, No new releases...'</em>
+    <p>Text to display when there is no new releases.</p></li>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
+    <li><pre>noRecentTracks</pre></strong> - <strong><em>Default:</strong> 'Sorry, No recent tracks...'</em>
+    <p>Text to display when there is no recent tracks.</p></li>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Jquery.jamcity maintained by <a href="https://github.com/bluetidepro">bluetidepro</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+    <li><pre>onComplete</pre>
+    <p>On complete, fun a function or do something else.</p></li>
+  </ul>
+  <h3>Each Item HTML Output</h3>
+  <pre>  &#8249;li class="jmc_track"&#8250;
+    &#8249;a href="{Track Link}" title="{name} by {artist}" target="_blank"&#8250;
+      &#8249;span class="jmc_album_art"&#8250;&#8249;img src="{album art}" alt="{name} by {artist}">&#8250;&#8249;/span&#8250;
+      &#8249;span class="jmc_vinyl_case"&#8250;&#8249;/span&#8250;
+      &#8249;span class="jmc_vinyl_slip"&#8250;&#8249;/span&#8250;
+      &#8249;span class="jmc_vinyl"&#8250;&#8249;/span&#8250;
+      &#8249;div class="jmc_tooltip_wrap"&#8250;{name} by {artist}&#8249;span class="jmc_tooltip_arrow_down"&#8250;&#8249;/span&#8250;&#8249;/div&#8250;
+    &#8249;/a&#8250;
+  &#8249;/li&#8250;</pre>
+  <hr/>
+  <h2 id="Demos">Demos</h2>
+  <h3>Demo 1 <em>(default settings)</em></h3>
+    <div id="demo1"></div>
+    <pre>  $("#demo1").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro' 
+  });</pre>
+  <h3>Demo 2 <em>(small size + 12)</em></h3>
+    <div id="demo2"></div> 
+    <pre>  $("#demo2").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro',
+    artSize: 'sm',
+    number: 12
+  });</pre>
+  <h3>Demo 3 <em>(large size + extreme quality + 4)</em></h3>
+    <div id="demo3"></div> 
+    <pre>  $("#demo3").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro',
+    artQuality: 'extreme',
+    number: 4,
+    artSize: 'lg'
+  });</pre>
+  <h3>Demo 4 <em>(Top albums + high quality + 7)</em></h3>
+    <div id="demo4"></div> 
+    <pre>  $("#demo4").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro',
+    contentType: 'topAlbums',
+    artQuality: 'high',
+    number: 7
+  });</pre>
+  <h3>Demo 5 <em>(Top tracks + high quality + 7)</em></h3>
+    <div id="demo5"></div> 
+    <pre>  $("#demo5").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro',
+    contentType: 'topTracks',
+    artQuality: 'high',
+    number: 7
+  });</pre>
+  <h3>Demo 6 <em>(New Releases + 7)</em></h3>
+    <div id="demo6"></div> 
+    <pre>  $("#demo6").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro',
+    contentType: 'newReleases',
+    number: 7
+  });</pre>
+  <h3>Demo 7 <em>(large size + light theme + 4)</em></h3>
+    <div id="demo7"></div> 
+    <pre>  $("#demo7").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro',
+    cssThemeClass: 'jmc_light_theme',
+    number: 4,
+    artSize: 'lg'
+  });</pre>
+  <h3>Demo 8 <em>(Loved tracks + custom help text)</em></h3>
+    <div id="demo8"></div> 
+    <pre>  $("#demo8").JamCity({ 
+    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+    username: 'bluetidepro',
+    contentType: 'lovedTracks',
+    noLovedTracks: 'Sorry homie, ain\'t no loved tracks here!'
+  });</pre>
+  <hr/>
+  <h2 id="FAQ">FAQ</h2>
+  <ul class="clearfix">
+    <li><strong>Where do I get a Last.FM api key?</strong>
+    <p>It's very easy. Simply signup for an API key (be sure to be logged into Last.FM) <a href="http://www.last.fm/api/account">here (http://www.last.fm/api/account)</a>.</p></li>
+    <li><strong>I don't use Last.FM, can I get this working for Spotify?</strong>
 
-    
+    <p>Yes! What you can do is connect your Spotify account to "scrobble" what you play from Spotify to Last.FM (this is built into Spotify already). You will still need to create a Last.FM account to connect everything but once you do that, everything you play on Spotify will automatically be sent to your Last.FM account, then used by jQuery.JamCity!</p></li>
 
-  </body>
+    <li><strong>Where should I report any bugs?</strong>
+    <p>Please report all jQuery.JamCity bugs on the <a href="https://github.com/bluetidepro/jQuery.JamCity/issues">github 'Issues' page</a>. Thanks!</p></li>
+
+    <li><strong>I have a feature request, what do I do?</strong>
+    <p>You can <a href="mailto:zreed@bluetideproductions.com">Email me</a> (Twitter: <a href="https://twitter.com/#!/bluetidepro">@bluetidepro</a>) or post it on the jQuery.JamCity <a href="https://github.com/bluetidepro/jQuery.JamCity/issues">github 'Issues' page</a>. Thanks!</p></li>
+  </ul>
+  <hr/>
+  <h2 id="Info">More info, and contact</h2>
+  <p>Portions of the code derived/forked from "<a href="http://labs.engageinteractive.co.uk/lastfm/">Last.fm Plugin for jQuery</a>" and "<a href="https://github.com/kylehotchkiss/jQuery.nowPlaying">jQuery.nowPlaying</a>"</p>
+  <p>Original .PSD for some design elements by <a href="http://dribbble.com/thyraz">Tobias Wiedenmann</a> - <a href="http://365psd.com/day/267/">Music Album Cover PSD</a></p>
+  <p>jQuery.JamCity has <a href="http://cherne.net/brian/resources/jquery.hoverIntent.html">hoverIntent r6 (2011.02.26)</a> built-in for tooltips to work properly.</p>
+  <hr/>
+  <p><a href="mailto:zreed@bluetideproductions.com">Email me</a> (Twitter: <a href="https://twitter.com/#!/bluetidepro">@bluetidepro</a>) if you have any questions about jQuery.JamCity.</p>
+</div>
+<!-- jQuery.JamCity & jQuery 1.7.2 include -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://raw.github.com/bluetidepro/jQuery.JamCity/master/jQuery.JamCity.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript"> 
+  $(document).ready(function() {
+
+    $("#demo1").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro' 
+    });
+
+   $("#demo2").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro',
+      artSize: 'sm',
+      number: 12
+    });
+
+    $("#demo3").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro',
+      artQuality: 'extreme',
+      number: 4,
+      artSize: 'lg'
+    });
+
+    $("#demo4").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro',
+      contentType: 'topAlbums',
+      artQuality: 'high',
+      number: 7
+    });
+
+    $("#demo5").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro',
+      contentType: 'topTracks',
+      artQuality: 'high',
+      number: 7
+    });
+
+    $("#demo6").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro',
+      contentType: 'newReleases',
+      artQuality: 'high',
+      number: 7
+    });
+
+    $("#demo7").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro',
+      cssThemeClass: 'jmc_light_theme',
+      number: 4,
+      artSize: 'lg'
+    });
+
+    $("#demo8").JamCity({ 
+      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+      username: 'bluetidepro',
+      contentType: 'lovedTracks',
+      noLovedTracks: 'Sorry homie, ain\'t no loved tracks here!'
+    });
+
+  });
+</script> 
+</body>
 </html>
