@@ -366,7 +366,7 @@
         marginTop: heightP + 8 + 'px',
         marginLeft: widthP / 2 + 'px'
       });
-      //$(this).removeAttr("title");
+      $(this).removeAttr("title");
       var config = {
         sensitivity: 1,
         interval: 10,
