@@ -84,63 +84,63 @@ Then, initialize jQuery.JamCity. Put the following code before the closing tag o
 
     Output album art size. Defaults to `medium`. Variables: `sm` or `small`, `md` or `medium`, `lg` or `large`.
 
-*   **`artQuality`** - ***Default:** 'normal'*
+*   **`artQuality`** - ***Default:** 'normal'
 
     Output album art quality. Defaults to `normal`. Variables: `normal`, `high`, or `extreme`. (NOTE: Choosing `high` or `extreme` may slow load speed)
 
-*   **`number`** - ***Default:** '5'*
+*   **`number`** - **Default:** '5'
 
     Number of tracks to display. Defaults to 5.
 
-*   **`refreshResults`** - ***Default:** 'true'*
+*   **`refreshResults`** - **Default:** 'true'
 
     Do you want to auto refresh for new results without reloading the page (Good for contentType `recentTracks`)? Defaults to `true`.
 
-*   **`refreshResultsInt`** - ***Default:** '45000'*
+*   **`refreshResultsInt`** - **Default:** '45000'
 
     How often do you want to pull new results? Int, in milliseconds. Defaults to `45000` (every 45 seconds).
 
-*   **`tooltips`** - ***Default:** 'true'*
+*   **`tooltips`** - **Default:** 'true'
 
     Do you want to use tooltips? Defaults to `true`. Variables: `true` or `false`.
 
-*   **`nowPlayingIcon`** - ***Default:** 'true'*
+*   **`nowPlayingIcon`** - **Default:** 'true'
 
     Do you want to see the "Now Playing" equalizer icon if that value exists? Defaults to `true`. Variables: `true` or `false`.
 
-*   **`_blankLinks`** - ***Default:** 'true'*
+*   **`_blankLinks`** - **Default:** 'true'
 
     Do you want links to open in a new window? Defaults to `true`. Variables: `true` or `false`.
 
-*   **`noAlbumArtImg`** - ***Default:** 'http://placehold.it/126x126&text=No Art'*
+*   **`noAlbumArtImg`** - **Default:** 'http://placehold.it/126x126&text=No Art'
 
     Default image to use if there is no album art for the track.
 
-*   **`cssWrapperID`** - ***Default:** 'jmc_wrap'*
+*   **`cssWrapperID`** - **Default:** 'jmc_wrap'
 
     CSS ID for `UL` wrapper. Defaults to `jmc_wrap`. (NOTE: If you change this, be sure to update your CSS file.)
 
-*   **`cssThemeClass`** - ***Default:** 'jmc_dark_theme'*
+*   **`cssThemeClass`** - **Default:** 'jmc_dark_theme'
 
     CSS theme to use. Defaults to `jmc_dark_theme`. Variables: `jmc_dark_theme` or `jmc_light_theme`. (NOTE: If you change this, be sure to update your CSS file.)
 
-*   **`noLovedTracks`** - ***Default:** 'Sorry, No loved tracks...'*
+*   **`noLovedTracks`** - **Default:** 'Sorry, No loved tracks...'*
 
     Text to display when there is no loved tracks.
 
-*   **`noTopAlbums`** - ***Default:** 'Sorry, No top albums...'*
+*   **`noTopAlbums`** - **Default:** 'Sorry, No top albums...'*
 
     Text to display when there is no top albums.
 
-*   **`noTopTracks`** - ***Default:** 'Sorry, No top tracks...'*
+*   **`noTopTracks`** - **Default:** 'Sorry, No top tracks...'*
 
     Text to display when there is no top tracks.
 
-*   **`noNewReleases`** - ***Default:** 'Sorry, No new releases...'*
+*   **`noNewReleases`** - **Default:** 'Sorry, No new releases...'*
 
     Text to display when there is no new releases.
 
-*   **`noRecentTracks`** - ***Default:** 'Sorry, No recent tracks...'*
+*   **`noRecentTracks`** - **Default:** 'Sorry, No recent tracks...'*
 
     Text to display when there is no recent tracks.
 
