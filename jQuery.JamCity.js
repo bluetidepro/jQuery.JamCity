@@ -76,7 +76,7 @@
       var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=' + settings.username + '&api_key=' + settings.apiKey + '&limit=' + settings.number + '&format=json&callback=?';
     }
 
-    jmc_debug(lastUrl);
+    //jmc_debug(lastUrl);
 
     // Variables
     var $this = $(this);
