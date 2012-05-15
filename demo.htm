@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Demo - jQuery.JamCity</title>
+  <title>Demo - jQuery.JamCity (1.1)</title>
 
   <!-- Stylesheet for Demo -->
   <link rel="stylesheet" href="css/demo.css" type="text/css">
@@ -13,9 +13,9 @@
 </head>
 <body>
 <div id="content">
-  <h1 class="header"><a href="https://github.com/bluetidepro/jQuery.JamCity">jQuery.JamCity</a> Documentation <span>by <a href="http://iamzachreed.com/" title="Zach Reed">Zach Reed</a></span></h1>
+  <h1 class="header"><a href="https://github.com/bluetidepro/jQuery.JamCity">jQuery.JamCity 1.1</a> Documentation <span>by <a href="http://iamzachreed.com/" title="Zach Reed">Zach Reed</a></span></h1>
   <hr/>
-  <p>jQuery.JamCity : v. 1.0</p>
+  <p>jQuery.JamCity : v. 1.1</p>
   <p>Copyright (c) 2012 Zach Reed [Blue Tide Productions, LLC]. </p>
   <p>Dual licensed under the MIT and GPL licenses.</p>
   <hr />
@@ -24,6 +24,7 @@
     <li><a href="#GettingStarted" title="GettingStarted">Getting Started</a></li>
     <li><a href="#Usage" title="Usage">Usage</a></li>
     <li><a href="#Demos" title="Demos">Demos</a></li>
+    <li><a href="#Changelog" title="Changelog">Changelog</a></li>
     <li><a href="#FAQ" title="FAQ">FAQ</a></li>
     <li><a href="#Info" title="More info, and contact">More info, and contact</a></li>
   </ul>
@@ -31,7 +32,7 @@
   <p><strong>Please do not use my API key <em>(</strong>c5d7bcc2600127f2c24e5b50c5f8ea5a<strong>)</em> on your site. This API key is used only for demo purposes. You can generate your own key, for free, <a href="here http://www.last.fm/api/account" title="Last.FM API Key">here http://www.last.fm/api/account</a>! Thank you!</strong></p>
   <hr />
   <h2 id="GettingStarted">Getting Started</h2>
-  <p>First, include the jQuery library, jQuery.JamCity javascript (<em>jQuery.JamCity.js</em> or <em>jQuery.JamCity.min.js</em>) and the jQuery.JamCity CSS (<em>jmc_styles.css</em>) on the page(s) where you want to use jQuery.JamCity.</p>
+  <p>First, include the jQuery library, jQuery.JamCity javascript (<em><strong>jQuery.JamCity.js</strong></em> or <em><strong>jQuery.JamCity.min.js</strong></em>) and the jQuery.JamCity CSS (<em><strong>jmc_styles.css</strong></em>) on the page(s) where you want to use jQuery.JamCity.</p>
   <pre>  &#8249;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"&#8250;&#8249;/script&#8250;
   &#8249;script src="jQuery.JamCity.js" type="text/javascript"&#8250;&#8249;/script&#8250;
   &#8249;link rel="stylesheet" href="css/jmc_styles.css" type="text/css"&#8250;</pre>
@@ -55,6 +56,8 @@
       artSize: '',
       artQuality: 'normal'
       number: 5,
+      refreshResults: true,
+      refreshResultsInt: 45000,
       tooltips: true,
       nowPlayingIcon: true,
       _blankLinks: true,
@@ -88,6 +91,12 @@
 
     <li><pre>number</pre> - <strong><em>Default:</strong> '5'</em>
     <p>Number of tracks to display. Defaults to 5.</p></li>
+
+    <li><pre>refreshResults</pre> - <strong><em>Default:</strong> 'true'</em>
+    <p>Do you want to auto refresh for new results without reloading the page (Good for contentType <span>`recentTracks`</span>)? Defaults to <span>`true`</span>.</p></li>
+
+    <li><pre>refreshResultsInt</pre> - <strong><em>Default:</strong> '45000'</em>
+    <p>How often do you want to pull new results? Int, in milliseconds. Defaults to <span>`45000`</span> (every 45 seconds).</p></li>
 
     <li><pre>tooltips</pre> - <strong><em>Default:</strong> 'true'</em>
     <p>Do you want to use tooltips? Defaults to <span>`true`</span>. Variables: <span>`true`</span> or <span>`false`</span>.</p></li>
@@ -151,13 +160,14 @@
     artSize: 'sm',
     number: 12
   });</pre>
-  <h3>Demo 3 <em>(large size + extreme quality + 4)</em></h3>
+  <h3>Demo 3 <em>(large size + extreme quality + 4 + no refreshing for new results)</em></h3>
     <div id="demo3"></div> 
     <pre>  $("#demo3").JamCity({ 
     apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
     username: 'bluetidepro',
     artQuality: 'extreme',
     number: 4,
+    refreshResults: false,
     artSize: 'lg'
   });</pre>
   <h3>Demo 4 <em>(Top albums + high quality + 7)</em></h3>
@@ -195,14 +205,23 @@
     number: 4,
     artSize: 'lg'
   });</pre>
-  <h3>Demo 8 <em>(Loved tracks + custom help text)</em></h3>
+  <h3>Demo 8 <em>(Loved tracks + custom help text + no refreshing for new results)</em></h3>
     <div id="demo8"></div> 
     <pre>  $("#demo8").JamCity({ 
     apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
     username: 'bluetidepro',
     contentType: 'lovedTracks',
+    refreshResults: false,
     noLovedTracks: 'Sorry homie, ain\'t no loved tracks here!'
   });</pre>
+  <hr/>
+  <h2 id="Changelog">Changelog</h2>
+  <ul class="clearfix">
+    <li><strong>jQuery.JamCity : v. 1.1</strong> (May 15th, 2012)
+    <p>Added two new options (<span>`refreshResults`</span> and <span>`refreshResultsInt`</span>), so you can pull for new results. This is great for the contentType <span>`recentTracks`</span> to have it dynamically show what you're listening to. Cleaned up a few small miscellaneousness bugs.</p></li>
+    <li><strong>jQuery.JamCity : v. 1.0</strong> (May 14th, 2012)
+    <p>First build of jQuery.JamCity.</p></li>
+  </ul>
   <hr/>
   <h2 id="FAQ">FAQ</h2>
   <ul class="clearfix">
@@ -249,6 +268,7 @@
       username: 'bluetidepro',
       artQuality: 'extreme',
       number: 4,
+      refreshResults: false,
       artSize: 'lg'
     });
 
@@ -288,6 +308,7 @@
       apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
       username: 'bluetidepro',
       contentType: 'lovedTracks',
+      refreshResults: false,
       noLovedTracks: 'Sorry homie, ain\'t no loved tracks here!'
     });
 

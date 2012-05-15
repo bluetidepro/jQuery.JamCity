@@ -1,8 +1,8 @@
-# jQuery.JamCity (1.0)
+# jQuery.JamCity (1.1)
 
 * * *
 
- jQuery.JamCity : v. 1.0  
+ jQuery.JamCity : v. 1.1  
  Copyright (c) 2012 Zach Reed [Blue Tide Productions, LLC].  
  Dual licensed under the MIT and GPL licenses.  
 
@@ -49,6 +49,8 @@ Then, initialize jQuery.JamCity. Put the following code before the closing tag o
 			artSize: '',
   			artQuality: 'normal',
 			number: 5,
+		    refreshResults: true,
+		    refreshResultsInt: 45000,
 			tooltips: true,
 			nowPlayingIcon: true,
 			_blankLinks: true,
@@ -89,6 +91,14 @@ Then, initialize jQuery.JamCity. Put the following code before the closing tag o
 *   **`number`** - ***Default:** '5'*
 
     Number of tracks to display. Defaults to 5.
+
+*   **`refreshResults`** - ***Default:** 'true'*
+
+    Do you want to auto refresh for new results without reloading the page (Good for contentType `recentTracks`)? Defaults to `true`.
+
+*   **`refreshResultsInt`** - ***Default:** '45000'*
+
+    How often do you want to pull new results? Int, in milliseconds. Defaults to `45000` (every 45 seconds).
 
 *   **`tooltips`** - ***Default:** 'true'*
 
@@ -167,6 +177,16 @@ Then, initialize jQuery.JamCity. Put the following code before the closing tag o
 *   **I have a feature request, what do I do?**
 	
 	You can [Email me](mailto:zreed@bluetideproductions.com) ([@bluetidepro](https://twitter.com/#!/bluetidepro)) or post it on the jQuery.JamCity [github 'Issues' page](https://github.com/bluetidepro/jQuery.JamCity/issues). Thanks!
+
+## jQuery.JamCity // Changelog
+
+*   **jQuery.JamCity : v. 1.1** (May 15th, 2012)
+
+    Added two new options (`refreshResults` and `refreshResultsInt`), so you can pull for new results. This is great for the contentType `recentTracks` to have it dynamically show what you're listening to. Cleaned up a few small miscellaneousness bugs.
+
+*   **jQuery.JamCity : v. 1.0** (May 14th, 2012)
+
+    First build of jQuery.JamCity.
 
 ## jQuery.JamCity // Coming Soon
 
