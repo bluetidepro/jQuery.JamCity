@@ -3,7 +3,7 @@
  * jQuery.JamCity : v. 1.1
  * https://github.com/bluetidepro/jQuery.JamCity
  * Copyright (c) 2012 Zach Reed (Blue Tide Productions, LLC).
- * Dual licensed under the MIT and GPL licenses.  
+ * Dual licensed under the MIT and GPL licenses.
  *
  */ (function ($) {
 
@@ -95,7 +95,7 @@
     $this.append("<ul id=\"" + settings.cssWrapperID + "\" class=\"" + settings.cssThemeClass + " jmc_size" + imgSize + "\"></ul>");
     var $this = $this.find("#" + settings.cssWrapperID);
 
-    // Get the data 
+    // Get the data
     var fetchSongs = function(){
       $.getJSON(lastUrl, function (data) {
         // Content type is lovedTracks
