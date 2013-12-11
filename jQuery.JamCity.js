@@ -1,459 +1,263 @@
 /**
- *
- * jQuery.JamCity : v. 1.1
- * https://github.com/bluetidepro/jQuery.JamCity
- * Copyright (c) 2012 Zach Reed (Blue Tide Productions, LLC).
- * Dual licensed under the MIT and GPL licenses.
- *
- */ (function ($) {
+*
+*	jquery.JamCity : v. 2.0.0
+*	https://github.com/bluetidepro/jquery.JamCity
+*	Copyright (c) 2012 Zach Reed (http://iamzachreed.com).
+*	MIT licensed
+*
+*/
+;(function($,window,document,undefined) {
+	'use strict';
 
-  // Start JamCity (JMC)!
-  $.fn.JamCity = function (options) {
+	/*
+	*	@params
+	*
+	*	Required params:
+	*		- [string] apiKey: Your Last.fm API key (easily setup free: http://www.last.fm/api/account )
+	*		- [string] username: Your Last.fm username (ie. http://www.last.fm/user/(USERNAME) )
+	*
+	*	Optional params:
+	*		- [integer] fetch: The number of tracks to fetch/display. Default is 5.
+	*		- [string] contentType: The content to display, accepted values are recentTracks, lovedTracks, topAlbums, topTracks, topArtists, weeklyArtistChart, weeklyAlbumChart, and weeklyTrackChart. Default is recentTracks.
+	*		- [string] artSize: The album art size to use, accepted values are small, medium, and large. Default is medium.
+	*		- [boolean] cssTooltips: Display the content name/plays/etc. in a CSS tooltip. Default is true.
+	*		- [string] cssThemeClass: The CSS class attached to the displayed content, accepted value is jamCityTheme_whiteVinyl if you want the built in white theme. This can be changed to something custom. Default is null (a dark theme). (NOTE: If you change this to something custom, be sure to update your CSS file)
+	*		- [boolean] _blankLinks: Open all links in the content in a new window/tab. Default is true.
+	*		- [boolean] refreshResults: Auto refresh the content for new results without reloading the page. Default is true.
+	*		- [integer] refreshResultsInterval: If refreshResults is true, how often do you want to pull new results (in milliseconds). Default is 600000 (60 seconds). (NOTE: For your protection against the Last.FM API, this number can't be below 10000)
+	*		- [string] noAlbumArtImg: The default image to use if there is no album art for the track. Default is http://placehold.it/250x250&text=No Art.
+	*		- [string] noResults: Text to display when no results are found. Default is 'Sorry, nothing was found...'.
+	*		- [function] songsFetched: On complete of fetching the songs, run a function or do something else.
+	*		- [function] htmlBuilt: On complete of building the HTML, run a function or do something else.
+	*/
 
-    // Default JMC Options
-    var defaults = {
-      apiKey: '', // Your Last.fm API key. You can get this easily setup here: http://www.last.fm/api/account.
-      username: '', // Your Last.fm username.
-      contentType: '', // Content to display. Defaults to `recentTracks`. Variables: `lovedTracks` (Your Loved Tracks), `topAlbums` (Your Top Albums), `topTracks` (Your Top Tracks), `newReleases` (Your New Releases), `recentTracks` (Your Recent Tracks).
-      artSize: '', // Output album art size. Defaults to `medium`. Variables: `sm` or `small`, `md` or `medium`, `lg` or `large`.
-      artQuality: 'normal', // Output album art quality. Defaults to `normal`. Variables: `normal`, `high`, or `extreme`. (NOTE: Choosing `high` or `extreme` may slow load speed)
-      number: 5, // Number of tracks to display. Defaults to 5.
-      refreshResults: true, // Do you want to auto refresh for new results without reloading the page (Good for contentType `recentTracks`)? Defaults to `true`.
-      refreshResultsInt: 45000, // How often do you want to pull new results? Int, in milliseconds. Defaults to `45000` (every 45 seconds).
-      tooltips: true, // Do you want to use tooltips? Defaults to `true`. Variables: `true` or `false`.
-      nowPlayingIcon: true, // Do you want to see the "Now Playing" equalizer icon if that value exists? Defaults to `true`. Variables: `true` or `false`.
-      _blankLinks: true, // Do you want links to open in a new window? Defaults to `true`. Variables: `true` or `false`.
-      noAlbumArtImg: 'http://placehold.it/126x126&text=No Art', // Default image to use if there is no album art for the track.
-      cssWrapperID: 'jmc_wrap', // CSS ID for `UL` wrapper. Defaults to `jmc_wrap`. (NOTE: If you change this, be sure to update your CSS file.)
-      cssThemeClass: 'jmc_dark_theme', // CSS theme to use. Defaults to `jmc_dark_theme`. Variables: `jmc_dark_theme` or `jmc_light_theme`. (NOTE: If you change this, be sure to update your CSS file.)
-      noLovedTracks: 'Sorry, No loved tracks...', // Text to display when there is no loved tracks.
-      noTopAlbums: 'Sorry, No top albums...', // Text to display when there is no top albums.
-      noTopTracks: 'Sorry, No top tracks...', // Text to display when there is no top tracks.
-      noNewReleases: 'Sorry, No new releases...', // Text to display when there is no new releases.
-      noRecentTracks: 'Sorry, No recent tracks...', // Text to display when there is no recent tracks.
-      onComplete: function () {} // On complete, fun a function or do something else.
-    },
+	var $JamCity = "JamCity",
+	defaults = {
+		apiKey: '',
+		username: '',
+		fetch: 5,
+		contentType: 'recentTracks',
+		artSize: 'medium',
+		cssTooltips: true,
+		cssThemeClass: null,
+		_blankLinks: true,
+		refreshResults: true,
+		refreshResultsInterval: 600000,
+		noAlbumArtImg: 'http://placehold.it/250x250&text=No Art',
+		noResults: 'Sorry, nothing was found...',
+		songsFetched: function () {},
+		htmlBuilt: function () {}
+	};
 
-    settings = $.extend({}, defaults, options);
+	// The actual plugin constructor
+	function JamCity_Construct ( element, options ) {
+		this.element = element;
+		this.settings = $.extend( {}, defaults, options );
+		this._defaults = defaults;
+		this._name = $JamCity;
+		this.init();
+	}
 
-    if (settings.apiKey == "") {
-      jmc_debug("Please enter a valid API key.");
-    }
-    if (settings.username == "") {
-      jmc_debug("Please enter a valid username.");
-    }
-    if (settings.contentType == "lovedTracks" || settings.contentType == "lovedtracks") {
-      var contentOutputType = "lovedTracks";
-    }
-    else if (settings.contentType == "topAlbums" || settings.contentType == "topalbums") {
-      var contentOutputType = "topAlbums";
-    }
-    else if (settings.contentType == "topTracks" || settings.contentType == "toptracks") {
-      var contentOutputType = "topTracks";
-    }
-    else if (settings.contentType == "newReleases" || settings.contentType == "newreleases") {
-      var contentOutputType = "newReleases";
-    }
-    else if (settings.contentType == "recentTracks" || settings.contentType == "recenttracks" || settings.contentType == '') {
-      var contentOutputType = "recentTracks";
-    }
-    if (contentOutputType == "lovedTracks") {
-      var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getLovedTracks&user=' + settings.username + '&api_key=' + settings.apiKey + '&limit=' + settings.number + '&format=json&callback=?';
-    }
-    else if (contentOutputType == "topAlbums") {
-      var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=' + settings.username + '&api_key=' + settings.apiKey + '&format=json&callback=?';
-    }
-    else if (contentOutputType == "topTracks") {
-      var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=' + settings.username + '&api_key=' + settings.apiKey + '&format=json&callback=?';
-    }
-    else if (contentOutputType == "newReleases") {
-      var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getNewReleases&user=' + settings.username + '&api_key=' + settings.apiKey + '&format=json&callback=?';
-    }
-    else if (contentOutputType == "recentTracks") {
-      var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=' + settings.username + '&api_key=' + settings.apiKey + '&limit=' + settings.number + '&format=json&callback=?';
-    }
-    else {
-      var lastUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=' + settings.username + '&api_key=' + settings.apiKey + '&limit=' + settings.number + '&format=json&callback=?';
-    }
+	JamCity_Construct.prototype = {
+		init: function () {
+			var options = this.settings,
+				el = this.element;
+			this.validate(options);
+			this.fetchSongs(el, options);
+		},
+		validate: function (options) {
+			if (!options.apiKey) {
+				this.debug("Please enter a valid API key.");
+				return false;
+			}
+			if (!options.username) {
+				this.debug("Please enter a valid username.");
+				return false;
+			}
+			return true;
+		},
+		buildLastfmUrl: function (options) {
+			var apiUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.get' + options.contentType + '&user=' + options.username + '&api_key=' + options.apiKey + '&limit=' + options.fetch + '&format=json';
+			return apiUrl;
+		},
+		buildInfoUrl: function (type, options, mbid) {
+			var InfoUrl = 'http://ws.audioscrobbler.com/2.0/?method=' + type + '.getinfo&api_key=' + options.apiKey + '&mbid=' + mbid + '&format=json';
+			return InfoUrl;
+		},
+		fetchSongs: function (el, options) {
+			var jamCity = this,
+				contentTypeNames = {
+					'recentTracks': 'track',
+					'lovedTracks': 'track',
+					'topAlbums': 'album',
+					'topTracks': 'track',
+					'topArtists': 'artist',
+					'weeklyAlbumChart': 'album',
+					'weeklyArtistChart': 'artist',
+					'weeklyTrackChart': 'track'
+				},
+				items = [],
+				contentTypeShortName = contentTypeNames[options.contentType],
+				contentType = options.contentType.toLowerCase(),
+				apiUrl = 'http://ws.audioscrobbler.com/2.0/?method=user.get' + options.contentType + '&user=' + options.username + '&api_key=' + options.apiKey + '&limit=' + options.fetch + '&format=json';
+			$.ajax({
+				url: apiUrl,
+				type: "GET",
+				context: this,
+				async: false,
+				error: function () {},
+				dataType: 'json',
+				success : function (response) {
+					if(response[contentType] && response[contentType].total === "0") {
+						items.push('jamCityError'); // render no results
+					} else {
+						var data = response[contentType][contentTypeShortName],
+							track_Count = data.length - 1;
+						$(data).each(function(i, el) {
+							var item = jamCity.templateData(options, el);
+							items.push(item);
+							if (item.item_nowplaying) { track_Count = track_Count - 1; }
+							if (i === track_Count) { return false; }
+						});
+					}
+					// songsFetched Callback
+					if ($.isFunction(options.songsFetched)){
+						options.songsFetched.call(this);
+						jamCity.buildHTML(items, el, options);
+					}
+					// Refresh Results
+					if (options.refreshResults) {
+						if (options.refreshResultsInterval < 10000) { options.refreshResultsInterval = 10000; }
+						setTimeout(function() {
+							$(el).find('#jamCityWrapper').remove();
+							jamCity.fetchSongs(el, options);
+						}, options.refreshResultsInterval);
+					}
+				}
+			});
+		},
+		templateData: function (options, json_item) {
+			var o = [];
+			o.item = json_item;
+			o.item_url = json_item.url;
+			o.item_mbid = json_item.mbid;
+			o.item_nowplaying = null;
+			o.item_playcount = null;
+			switch (options.contentType) {
+				case 'recentTracks':
+					if(json_item['@attr']) {
+						o.item_nowplaying = json_item['@attr']['nowplaying'];
+					}
+					o.item_name = '\'' + json_item.name + '\'  by ' + json_item.artist['#text'];
+					o.item_album = json_item.album;
+					o.item_image = json_item.image;
+					break;
+				case 'lovedTracks':
+					o.item_name = '\'' + json_item.name + '\'  by ' + json_item.artist.name;
+					o.item_album = json_item.album; // undefined
+					o.item_image = json_item.image;
+					break;
+				case 'topAlbums':
+					o.item_name = '\'' + json_item.name + '\'  by ' + json_item.artist.name;
+					o.item_playcount = json_item.playcount;
+					o.item_image = json_item.image;
+					break;
+				case 'topTracks':
+					o.item_playcount = json_item.playcount;
+					o.item_image = json_item.image;
+					o.item_name = '\'' + json_item.name + '\'  by ' + json_item.artist.name;
+					break;
+				case 'topArtists':
+					o.item_image = json_item.image;
+					o.item_name = json_item.name;
+					o.item_playcount = json_item.playcount;
+					break;
+				case 'weeklyAlbumChart':
+					o.item_name = '\'' + json_item.name + '\'  by ' + json_item.artist['#text'];
+					o.item_playcount = json_item.playcount;
+					if(o.item_mbid) {
+						var getAlbumInfo = this.buildInfoUrl('album', options, o.item_mbid);
+						$.ajax({ url: getAlbumInfo, type: "GET", async: false, dataType: 'json',
+							success : function (response) { o.item_image = response.album.image; }
+						});
+					}
+					break;
+				case 'weeklyArtistChart':
+					o.item_playcount = json_item.playcount;
+					if(o.item_mbid) {
+						var getArtistInfo = this.buildInfoUrl('artist', options, o.item_mbid);
+						$.ajax({ url: getArtistInfo, type: "GET", async: false, dataType: 'json',
+							success : function (response) { o.item_image = response.artist.image; }
+						});
+					}
+					o.item_name = json_item.name;
+					break;
+				case 'weeklyTrackChart':
+					o.item_image = json_item.image;
+					o.item_name = '\'' + json_item.name + '\' by ' + json_item.artist['#text'];
+					o.item_playcount = json_item.playcount;
+					break;
+				default:
+			}
+			return o;
+		},
+		buildHTML: function (items, el, options) {
+			var jamcity = this,
+				item_image = null;
+			$(el).append('<ul id="jamCityWrapper" class="' + options.cssThemeClass + ' jamCitySize_' + options.artSize + '"></ul>');
+			if (items == 'jamCityError') {
+				$(el).find('#jamCityWrapper').addClass('jamCityError').append('<li>' + options.noResults + '</li>');
+			} else {
+				$.each(items, function (i, item) {
+					if (item.item_image) {
+						if (item.item_image[4]) {
+							item_image = item.item_image[4]['#text'];
+						} else if (item.item_image[3]) {
+							item_image = item.item_image[3]['#text'];
+						} else if (item.item_image[2]) {
+							item_image = item.item_image[2]['#text'];
+						} else if (item.item_image[1]) {
+							item_image = item.item_image[1]['#text'];
+						} else {
+							item_image = options.noAlbumArtImg;
+						}
+					} else {
+						item_image = options.noAlbumArtImg;
+					}
+					$(el).find('#jamCityWrapper').append(
+						'<li style="z-index: ' + (500 - i) +'">' +
+							'<a href="' + item.item_url + '" ' +
+								((options.cssTooltips && item.item_name) ? 'data-tip="' + item.item_name + (item.item_playcount ? ' (' + item.item_playcount + ' plays)' : '') + '"' : '') +
+								'class="case' + (item.item_nowplaying ? ' nowplaying' : '') + '"' + (options._blankLinks ? ' target="_blank"' : '') + '>' +
+								'<div class="overlay"></div>' +
+								'<div class="cover"><img src="' + item_image + '"/></div>' +
+								'<div class="vinyl"></div>' +
+							'</a>' +
+						'</li>'
+					);
+					if (i === (options.fetch - 1)) { return false; }
+				});
+			}
+			// htmlBuilt Callback
+			if ($.isFunction(options.htmlBuilt)){
+				options.htmlBuilt.call(this);
+			}
+		},
+		debug: function (error) {
+			if (typeof console == 'object') {
+				console.log(error);
+			} else if (typeof opera == 'object') {
+				opera.postError(error);
+			}
+		}
+	};
 
-    //jmc_debug(lastUrl);
+	$.fn[$JamCity] = function ( options ) {
+		return this.each(function() {
+			if ( !$.data( this, "plugin_" + $JamCity ) ) {
+				$.data( this, "plugin_" + $JamCity, new JamCity_Construct( this, options ) );
+			}
+		});
+	};
 
-    // Variables
-    var $this = $(this);
-    var lastSongPlayed = null;
-    if (settings.artSize == 'small' || settings.artSize == 'sm') {
-      var imgSize = 0
-    }
-    else if (settings.artSize == 'medium' || settings.artSize == 'md' || settings.artSize == '') {
-      var imgSize = 1
-    }
-    else if (settings.artSize == 'large' || settings.artSize == 'lg') {
-      var imgSize = 2
-    }
-
-    // Set up `UL` wrapper
-    $this.append("<ul id=\"" + settings.cssWrapperID + "\" class=\"" + settings.cssThemeClass + " jmc_size" + imgSize + "\"></ul>");
-    var $this = $this.find("#" + settings.cssWrapperID);
-
-    // Get the data
-    var fetchSongs = function(){
-      $.getJSON(lastUrl, function (data) {
-        // Content type is lovedTracks
-        if (contentOutputType == "lovedTracks") {
-          // Check to see if there is any loved tracks
-          if (data.lovedtracks.track) {
-            if ($.isArray(data.lovedtracks.track)) {}
-            else {
-              data.lovedtracks.track = [data.lovedtracks.track];
-            }
-            var songLoop = function(){
-              $.each(data.lovedtracks.track, function (i, track) {
-                if (i > (settings.number - 1)) return false;
-                var displayArt = false;
-                if ($(this).attr("error")) {
-                  $(this).html("An error has occurred");
-                  jmc_debug($(this).attr("message"));
-                }
-                if (settings.artQuality != '' & settings.artQuality == 'high') {
-                  imgSize = 2;
-                } else if (settings.artQuality != '' & settings.artQuality == 'extreme') {
-                  imgSize = 3;
-                }
-                if (track.image) {
-                  displayArt = true;
-                  var art = stripslashes(track.image[imgSize]['#text']);
-                  if(track.image[imgSize]['#text'] == ''){
-                    displayArt = false;
-                  }
-                }
-                var url = stripslashes(track.url);
-                var song = track['name'].replace(/"/g, '');
-                var artist = track.artist['name'].replace(/"/g, '');
-                $this.append("<li class=\"jmc_track\">" + "<a href=\"" + url + "\" title=\"" + song + " by " + artist + "\"" + ((settings._blankLinks) ? 'target=\"_blank\"' : 'target=\"_self\"') + ">" +
-                //"<span class=\"jmc_vinyl_case_overlay\"></span>" +
-                "<span class=\"jmc_album_art\">" + '<img src="' + ((displayArt == true) ? art : settings.noAlbumArtImg) + '" alt="' + song + ' by ' + artist + '" />' + "</span>" + "<span class=\"jmc_vinyl_case\"></span><span class=\"jmc_vinyl_slip\"></span><span class=\"jmc_vinyl\"></span>" + "</a>" + "</li>");
-                if (i == (settings.number - 1)) {
-                  settings.onComplete.call(this);
-                }
-              });
-              if (settings.tooltips) {
-                var jmc_itemWrap = $this;
-                jmc_tooltip(jmc_itemWrap);
-              }
-            }
-            var currentSongPlayed = data.lovedtracks.track[0]["name"];
-            if(lastSongPlayed != currentSongPlayed){
-              lastSongPlayed = currentSongPlayed;
-              $this.find('li.jmc_track').remove();
-              songLoop();
-            } else {}
-          }
-          else {
-            // There is not loved tracks...
-            $this.find('span.jmc_message').remove();
-            $this.append("<span class=\"jmc_message\">" + settings.noLovedTracks + "</span>");
-            jmc_debug("No loved tracks...");
-          }
-        }
-        // Content type is topAlbums
-        else if (contentOutputType == "topAlbums") {
-          // Check to see if there is any top albums
-          if (data.topalbums.album) {
-            if ($.isArray(data.topalbums.album)) {}
-            else {
-              data.topalbums.album = [data.topalbums.album];
-            }
-            var songLoop = function(){
-              $.each(data.topalbums.album, function (i, album) {
-                if (i > (settings.number - 1)) return false;
-                var displayArt = false;
-                if ($(this).attr("error")) {
-                  $(this).html("An error has occurred");
-                  jmc_debug($(this).attr("message"));
-                }
-                if (settings.artQuality != '' & settings.artQuality == 'high') {
-                  imgSize = 2;
-                } else if (settings.artQuality != '' & settings.artQuality == 'extreme') {
-                  imgSize = 3;
-                }
-                if (album.image) {
-                  displayArt = true;
-                  var art = stripslashes(album.image[imgSize]['#text']);
-                  if(album.image[imgSize]['#text'] == ''){
-                    displayArt = false;
-                  }
-                }
-                var url = stripslashes(album.url);
-                var song = album['name'].replace(/"/g, '');
-                var artist = album.artist['name'].replace(/"/g, '');
-                $this.append("<li class=\"jmc_track\">" + "<a href=\"" + url + "\" title=\"" + song + " by " + artist + "\"" + ((settings._blankLinks) ? 'target=\"_blank\"' : 'target=\"_self\"') + ">" +
-                //"<span class=\"jmc_vinyl_case_overlay\"></span>" +
-                "<span class=\"jmc_album_art\">" + '<img src="' + ((displayArt == true) ? art : settings.noAlbumArtImg) + '" alt="' + song + ' by ' + artist + '" />' + "</span>" + "<span class=\"jmc_vinyl_case\"></span><span class=\"jmc_vinyl_slip\"></span><span class=\"jmc_vinyl\"></span>" + "</a>" + "</li>");
-                if (i == (settings.number - 1)) {
-                  settings.onComplete.call(this);
-                }
-              });
-              if (settings.tooltips) {
-                var jmc_itemWrap = $this;
-                jmc_tooltip(jmc_itemWrap);
-              }
-            }
-            var currentSongPlayed = data.topalbums.album[0]["name"];
-            if(lastSongPlayed != currentSongPlayed){
-              lastSongPlayed = currentSongPlayed;
-              $this.find('li.jmc_track').remove();
-              songLoop();
-            } else {}
-          }
-          else {
-            // There is not any top albums...
-            $this.find('span.jmc_message').remove();
-            $this.append("<span class=\"jmc_message\">" + settings.noLovedTracks + "</span>");
-            jmc_debug("No loved tracks...");
-          }
-        }
-        // Content type is topTracks
-        else if (contentOutputType == "topTracks") {
-          // Check to see if there is any top tracks
-          if (data.toptracks.track) {
-            if ($.isArray(data.toptracks.track)) {}
-            else {
-              data.toptracks.track = [data.toptracks.track];
-            }
-            var songLoop = function(){
-              $.each(data.toptracks.track, function (i, track) {
-                if (i > (settings.number - 1)) return false;
-                var displayArt = false;
-                if ($(this).attr("error")) {
-                  $(this).html("An error has occurred");
-                  jmc_debug($(this).attr("message"));
-                }
-                if (settings.artQuality != '' & settings.artQuality == 'high') {
-                  imgSize = 2;
-                } else if (settings.artQuality != '' & settings.artQuality == 'extreme') {
-                  imgSize = 3;
-                }
-                if (track.image) {
-                  displayArt = true;
-                  var art = stripslashes(track.image[imgSize]['#text']);
-                  if(track.image[imgSize]['#text'] == ''){
-                    displayArt = false;
-                  }
-                }
-                var url = stripslashes(track.url);
-                var song = track['name'].replace(/"/g, '');
-                var artist = track.artist['name'].replace(/"/g, '');
-                $this.append("<li class=\"jmc_track\">" + "<a href=\"" + url + "\" title=\"" + song + " by " + artist + "\"" + ((settings._blankLinks) ? 'target=\"_blank\"' : 'target=\"_self\"') + ">" +
-                //"<span class=\"jmc_vinyl_case_overlay\"></span>" +
-                "<span class=\"jmc_album_art\">" + '<img src="' + ((displayArt == true) ? art : settings.noAlbumArtImg) + '" alt="' + song + ' by ' + artist + '" />' + "</span>" + "<span class=\"jmc_vinyl_case\"></span><span class=\"jmc_vinyl_slip\"></span><span class=\"jmc_vinyl\"></span>" + "</a>" + "</li>");
-                if (i == (settings.number - 1)) {
-                  settings.onComplete.call(this);
-                }
-              });
-              if (settings.tooltips) {
-                var jmc_itemWrap = $this;
-                jmc_tooltip(jmc_itemWrap);
-              }
-            }
-            var currentSongPlayed = data.toptracks.track[0]["name"];
-            if(lastSongPlayed != currentSongPlayed){
-              lastSongPlayed = currentSongPlayed;
-              $this.find('li.jmc_track').remove();
-              songLoop();
-            } else {}
-          }
-          else {
-            // There is not top tracks...
-            $this.find('span.jmc_message').remove();
-            $this.append("<span class=\"jmc_message\">" + settings.noLovedTracks + "</span>");
-            jmc_debug("No loved tracks...");
-          }
-        }
-        // Content type is newReleases
-        else if (contentOutputType == "newReleases") {
-          // Check to see if there is any new releases
-          if (data.albums.album) {
-            if ($.isArray(data.albums.album)) {}
-            else {
-              data.albums.album = [data.albums.album];
-            }
-            var songLoop = function(){
-              $.each(data.albums.album, function (i, album) {
-                if (i > (settings.number - 1)) return false;
-                var displayArt = false;
-                if ($(this).attr("error")) {
-                  $(this).html("An error has occurred");
-                  jmc_debug($(this).attr("message"));
-                }
-                if (settings.artQuality != '' & settings.artQuality == 'high') {
-                  imgSize = 2;
-                } else if (settings.artQuality != '' & settings.artQuality == 'extreme') {
-                  imgSize = 3;
-                }
-                if (album.image) {
-                  displayArt = true;
-                  var art = stripslashes(album.image[imgSize]['#text']);
-                  if(album.image[imgSize]['#text'] == ''){
-                    displayArt = false;
-                  }
-                }
-                var url = stripslashes(album.url);
-                var song = album['name'].replace(/"/g, '');
-                var artist = album.artist['name'].replace(/"/g, '');
-                $this.append("<li class=\"jmc_track\">" + "<a href=\"" + url + "\" title=\"" + song + " by " + artist + "\"" + ((settings._blankLinks) ? 'target=\"_blank\"' : 'target=\"_self\"') + ">" +
-                //"<span class=\"jmc_vinyl_case_overlay\"></span>" +
-                "<span class=\"jmc_album_art\">" + '<img src="' + ((displayArt == true) ? art : settings.noAlbumArtImg) + '" alt="' + song + ' by ' + artist + '" />' + "</span>" + "<span class=\"jmc_vinyl_case\"></span><span class=\"jmc_vinyl_slip\"></span><span class=\"jmc_vinyl\"></span>" + "</a>" + "</li>");
-                if (i == (settings.number - 1)) {
-                  settings.onComplete.call(this);
-                }
-              });
-              if (settings.tooltips) {
-                var jmc_itemWrap = $this;
-                jmc_tooltip(jmc_itemWrap);
-              }
-            }
-            var currentSongPlayed = data.albums.album[0]["name"];
-            if(lastSongPlayed != currentSongPlayed){
-              lastSongPlayed = currentSongPlayed;
-              $this.find('li.jmc_track').remove();
-              songLoop();
-            } else {}
-          }
-          else {
-            // There is not any new releases...
-            $this.find('span.jmc_message').remove();
-            $this.append("<span class=\"jmc_message\">" + settings.noLovedTracks + "</span>");
-            jmc_debug("No loved tracks...");
-          }
-        }
-        else {
-          if (data.recenttracks.track) {
-            if ($.isArray(data.recenttracks.track)) {}
-            else {
-              data.recenttracks.track = [data.recenttracks.track];
-            }
-            var songLoop = function(){
-              $.each(data.recenttracks.track, function (i, track) {
-                if (i > (settings.number - 1)) return false;
-                var nowPlaying, displayArt = false;
-                if ($(this).attr("error")) {
-                  $(this).html("An error has occurred");
-                  jmc_debug($(this).attr("message"));
-                }
-                if (settings.artQuality != '' & settings.artQuality == 'high') {
-                  imgSize = 2;
-                } else if (settings.artQuality != '' & settings.artQuality == 'extreme') {
-                  imgSize = 3;
-                }
-                if (track.image) {
-                  displayArt = true;
-                  var art = stripslashes(track.image[imgSize]['#text']);
-                  if(track.image[imgSize]['#text'] == ''){
-                    displayArt = false;
-                  }
-                }
-                if ($(this).attr("@attr")) {
-                  nowPlaying = true;
-                }
-                var url = stripslashes(track.url);
-                var song = track['name'].replace(/"/g, '');
-                var artist = track.artist['#text'].replace(/"/g, '');
-                $this.append("<li class=\"jmc_track" + ((nowPlaying == true) ? ' jmc_nowplaying' : '') + "\">" + "<a href=\"" + url + "\" title=\"" + song + " by " + artist + "\"" + ((settings._blankLinks) ? 'target=\"_blank\"' : 'target=\"_self\"') + ">" +
-                //"<span class=\"jmc_vinyl_case_overlay\"></span>" +
-                ((nowPlaying == true & settings.nowPlayingIcon == true) ? '<span class=\"jmc_nowplaying\"></span>' : '') + "<span class=\"jmc_album_art\">" + '<img src="' + ((displayArt == true) ? art : settings.noAlbumArtImg) + '" alt="' + song + ' by ' + artist + '" />' + "</span>" + "<span class=\"jmc_vinyl_case\"></span><span class=\"jmc_vinyl_slip\"></span><span class=\"jmc_vinyl\"></span>" + "</a>" + "</li>");
-                if (i == (settings.number - 1)) {
-                  settings.onComplete.call(this);
-                }
-              });
-              if (settings.tooltips) {
-                var jmc_itemWrap = $this;
-                jmc_tooltip(jmc_itemWrap);
-              }
-            }
-            var currentSongPlayed = data.recenttracks.track[0]["name"];
-            if(lastSongPlayed != currentSongPlayed){
-              lastSongPlayed = currentSongPlayed;
-              $this.find('li.jmc_track').remove();
-              songLoop();
-            } else {}
-          }
-          else {
-            $this.find('span.jmc_message').remove();
-            $this.append("<span class=\"jmc_message\">" + settings.noLovedTracks + "</span>");
-            jmc_debug("No recent tracks...");
-          }
-        }
-        if (settings.refreshResults) {
-          setTimeout(fetchSongs, settings.refreshResultsInt);
-        }
-      });
-    }
-    fetchSongs();
-  };
-
-  // JMC Tooltip function
-  function jmc_tooltip(jmc_itemWrap) {
-    // hoverIntent r6 // 2011.02.26 // jQuery 1.5.1+ <http://cherne.net/brian/resources/jquery.hoverIntent.html> @author Brian Cherne brian(at)cherne(dot)net
-    $.fn.hoverIntent=function(f,g){var cfg={sensitivity:7,interval:100,timeout:0};cfg=$.extend(cfg,g?{over:f,out:g}:f);var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if((Math.abs(pX-cX)+Math.abs(pY-cY))<cfg.sensitivity){$(ob).unbind("mousemove",track);ob.hoverIntent_s=1;return cfg.over.apply(ob,[ev])}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=0;return cfg.out.apply(ob,[ev])};var handleHover=function(e){var ev=jQuery.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t)}if(e.type=="mouseenter"){pX=ev.pageX;pY=ev.pageY;$(ob).bind("mousemove",track);if(ob.hoverIntent_s!=1){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob)},cfg.interval)}}else{$(ob).unbind("mousemove",track);if(ob.hoverIntent_s==1){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob)},cfg.timeout)}}};return this.bind('mouseenter',handleHover).bind('mouseleave',handleHover)}
-    // Each Tooltip
-    var jmc_itemWrap = jmc_itemWrap.find('.jmc_track a');
-    jmc_itemWrap.each(function () {
-      var getText = $(this).attr('title');
-      var $wrapper = '<div class="jmc_tooltip_wrap">' + getText + '<span class="jmc_tooltip_arrow_down"></span></div>';
-      $(this).append($wrapper);
-      var $tooltip = $('.jmc_tooltip_wrap', this);
-      var widthP = $tooltip.width();
-      var widthP2 = $tooltip.outerWidth() / 2 + 2;
-      var heightP = $tooltip.height();
-      var widthT = $(this).width();
-      var heightT = $(this).height();
-      var marginTop = heightT;
-      $tooltip.css({
-        bottom: marginTop + 'px',
-        marginLeft: '-' + widthP2 + 'px'
-      });
-      $tooltip.css('opacity', 0);
-      var $tooltip_arrow = $('.jmc_tooltip_arrow_down', this);
-      $tooltip_arrow.css({
-        marginTop: heightP + 8 + 'px',
-        marginLeft: widthP / 2 + 'px'
-      });
-      $(this).removeAttr("title");
-      var config = {
-        sensitivity: 1,
-        interval: 10,
-        over: linkOver,
-        timeout: 125,
-        out: linkOut
-      };
-      $(this).hoverIntent(config);
-
-      function linkOver() {
-        $tooltip.show().css({
-          bottom: marginTop - 10 + 'px'
-        }).animate({
-          bottom: marginTop,
-          opacity: 1
-        }, 75);
-      }
-
-      function linkOut() {
-        $('.jmc_tooltip_wrap', this).animate({
-          bottom: (5 * 1.5) + marginTop,
-          opacity: 0
-        }, 150, function () {
-          $(this).hide();
-        });
-      }
-    });
-  }
-
-  // JMC Helpers
-  function stripslashes(str) {
-    return (str + '').replace(/\0/g, '0').replace(/\\([\\'"])/g, '$1');
-  }
-  function jmc_debug(error) {
-    if (typeof console == 'object') console.log(error);
-    else if (typeof opera == 'object') opera.postError(error);
-  }
-})(jQuery);
+})(jQuery, window, document);

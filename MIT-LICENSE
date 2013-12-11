@@ -1,36 +1,3 @@
-# jQuery.JamCity (2.0)
-
-jquery.JamCity : v. 2.0.0
-
-Copyright (c) 2012 Zach Reed (http://iamzachreed.com).
-
-Released under the MIT License.
-
-* * *
-
-JamCity is a jQuery plugin that gets your last.fm data and displays it in a beautiful modern layout using CSS3, jQuery, etc. Enjoy showing off your music on your blog or website!
-
-### Demos, Docs, FAQ, Etc.
-
-You can find [jQuery.JamCity demos, docs, FAQ, etc. all here](http://bluetidepro.github.io/jQuery.JamCity/).
-
-### Changelog
-
-*   **jQuery.JamCity : v. 2.0** (Dec 11th, 2013)
-
-    Refactored the whole plugin, added new content types, and cleaned up the themes.
-
-*   **jQuery.JamCity : v. 1.1** (May 15th, 2012)
-
-    Added two new options (`refreshResults` and `refreshResultsInt`), so you can pull for new results. This is great for the contentType `recentTracks` to have it dynamically show what you're listening to. Cleaned up a few small miscellaneousness bugs.
-
-*   **jQuery.JamCity : v. 1.0** (May 14th, 2012)
-
-    First build of jQuery.JamCity.
-
-
-### License
-
 The MIT License (MIT)
 
 Copyright (C) 2013 Zach Reed, http://iamzachreed.com/
