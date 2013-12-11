@@ -1,324 +1,343 @@
 <!doctype html>
-<html lang="en">
+<!--[if IE 6 ]><html lang="en-us" class="ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en-us" class="ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en-us" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="en-us"><!--<![endif]-->
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
 
-  <title>Demo - jQuery.JamCity (1.1)</title>
+	<title>jquery.JamCity : v. 2.0.0</title>
 
-  <!-- Stylesheet for Demo -->
-  <link rel="stylesheet" href="css/demo.css" type="text/css">
+	<meta name="description" content="JamCity is a jQuery plugin that gets your last.fm data and displays it in a beautiful modern layout using CSS3, jQuery, etc. Enjoy showing off your music on your blog or website!">
+	<meta name="author" content="Zach Reed">
+	<meta name="copyright" content="Zach Reed">
 
-  <!-- Stylesheet for jQuery.JamCity -->
-  <link rel="stylesheet" href="css/jmc_styles.min.css" type="text/css" charset="utf-8">
+	<link rel="stylesheet" href="assets/css/documenter_style.css" media="all">
+	<link rel="stylesheet" href="assets/js/google-code-prettify/prettify.css" media="screen">
+	<link rel="stylesheet" href="assets/css/docs.css" media="screen">
+	<script src="assets/js/google-code-prettify/prettify.js"></script>
+
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/jquery.scrollTo.js"></script>
+	<script src="assets/js/jquery.easing.js"></script>
+
+	<script>document.createElement('section');var duration='500',easing='swing';</script>
+	<script src="assets/js/script.js"></script>
 </head>
-<body>
-<div id="content">
-  <h1 class="header"><a href="https://github.com/bluetidepro/jQuery.JamCity">jQuery.JamCity</a> (1.1) Documentation <span>by <a href="http://iamzachreed.com/" title="Zach Reed">Zach Reed</a></span></h1>
-  <hr/>
-  <p>jQuery.JamCity : v. 1.1</p>
-  <p><a href="https://github.com/bluetidepro/jQuery.JamCity">https://github.com/bluetidepro/jQuery.JamCity</a></p>
-  <p>Copyright &copy; 2012 <a href="http://iamzachreed.com/" title="Zach Reed">Zach Reed (Blue Tide Productions, LLC)</a>. </p>
-  <p>Dual licensed under the <a href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT</a> and <a href="http://en.wikipedia.org/wiki/GNU_General_Public_License" target="_blank">GPL licenses</a>.</p>
-  <hr />
-  <h2>Table of contents</h2>
-  <ul class="clearfix">
-    <li><a href="#Download" title="Download">Download</a></li>
-    <li><a href="#GettingStarted" title="Getting Started">Getting Started</a></li>
-    <li><a href="#Usage" title="Usage">Usage</a></li>
-    <li><a href="#Demos" title="Demos">Demos</a></li>
-    <li><a href="#Changelog" title="Changelog">Changelog</a></li>
-    <li><a href="#FAQ" title="FAQ">FAQ</a></li>
-    <li><a href="#Info" title="More info, and contact">More info, and contact</a></li>
-  </ul>
-  <hr />
-  <p><strong>Please do not use my API key <em>(</strong>c5d7bcc2600127f2c24e5b50c5f8ea5a<strong>)</em> on your site. This API key is used only for demo purposes. You can generate your own key, for free, <a href="http://www.last.fm/api/account" title="Last.FM API Key">here http://www.last.fm/api/account</a>! Thank you!</strong></p>
-  <hr />
-  <h2 id="Download">Download</h2>
-  <p><a href="https://github.com/bluetidepro/jQuery.JamCity/zipball/master">Download jQuery.JamCity (1.1)</a> &rarr;</p>
-  <p><a href="https://github.com/bluetidepro/jQuery.JamCity">Fork jQuery.JamCity (1.1) on GitHub</a> &rarr;</p>
-  <hr />
-  <h2 id="GettingStarted">Getting Started</h2>
-  <p>First, include the jQuery library, jQuery.JamCity javascript (<em><strong>jQuery.JamCity.js</strong></em> or <em><strong>jQuery.JamCity.min.js</strong></em>) and the jQuery.JamCity CSS (<em><strong>jmc_styles.css</strong></em>) on the page(s) where you want to use jQuery.JamCity.</p>
-  <pre>  &#8249;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"&#8250;&#8249;/script&#8250;
-  &#8249;script src="jQuery.JamCity.js" type="text/javascript"&#8250;&#8249;/script&#8250;
-  &#8249;link rel="stylesheet" href="css/jmc_styles.css" type="text/css"&#8250;</pre>
-  <p>Then, add a container div with an ID to your HTML so we can output jQuery.JamCity somewhere.</p>
-  <pre>  &#8249;div id="JMC_Container"&#8250;&#8249;/div&#8250;</pre>
-  <p>Then, initialize jQuery.JamCity. Put the following code before the closing tag of your body ().</p>
-  <pre>  &#8249;script type="text/javascript" charset="utf-8"&#8250;
-    $(document).ready(function(){
-       $("#JMC_Container").JamCity({ 
-         apiKey: '',
-         username: 'bluetidepro' 
-       });
-    });
-  &#8249;/script&#8250;</pre>
-  <hr />
-  <h2 id="Usage">Usage</h2>
-  <pre>  $("#demo1").JamCity({ 
-      apiKey: '',
-      username: '',
-      contentType: '',
-      artSize: '',
-      artQuality: 'normal'
-      number: 5,
-      refreshResults: true,
-      refreshResultsInt: 45000,
-      tooltips: true,
-      nowPlayingIcon: true,
-      _blankLinks: true,
-      noAlbumArtImg:'http://placehold.it/126x126&text=No Art',
-      cssWrapperID: 'jmc_wrap',
-      cssThemeClass: 'jmc_dark_theme',
-      noLovedTracks: 'Sorry, No loved tracks...',
-      noTopAlbums: 'Sorry, No top albums...',
-      noTopTracks: 'Sorry, No top tracks...',
-      noNewReleases: 'Sorry, No new releases...',
-      noRecentTracks: 'Sorry, No recent tracks...',
-      onComplete: function () {
-      }
-  });</pre>
-  <h3>Configuration Settings</h3>
-  <ul class="clearfix">
-    <li><pre>apiKey</pre>
-    <p>Your Last.fm API key. You can get this easily setup here: <a href="http://www.last.fm/api/account">http://www.last.fm/api/account</a>.</p></li>
+<body class="documenter-project-jqueryjamcity">
+	<div id="documenter_sidebar">
+		<a href="#overview" id="documenter_logo"></a>
+		<ul id="documenter_nav">
+			<li><a class="current" href="#overview" title="Overview">Overview</a></li>
+			<li><a href="#getting_started" title="Getting Started">Getting Started</a></li>
+			<li><a href="#usage" title="Usage">Usage</a></li>
+			<li><a href="#demos" title="Demos">Demos</a></li>
+			<li><a href="#changelog" title="Changelog">Changelog</a></li>
+			<li><a href="#faq" title="FAQ">FAQ</a></li>
+			<li><a href="#more_info_and_contact" title="More info, and contact">More info, and contact</a></li>
+			<li><a href="#license" title="License">License</a></li>
+		</ul>
+		<div id="documenter_copyright">Copyright &copy; 2013 Zach Reed</div>
+	</div>
+	<div id="documenter_content">
+		<section id="overview">
+			<h1>jquery.JamCity</h1>
+			<h2>v. 2.0.0</h2>
+			<div id="documenter_buttons">
+				<a href="https://github.com/bluetidepro/jQuery.JamCity/archive/master.zip" class="btn btn-primary btn-large">Download jquery.JamCity .ZIP</a>
+				<a href="https://github.com/bluetidepro/jQuery.JamCity" class="btn btn-large">View on GitHub</a>
+			</div>
+			<hr>
+			<ul>
+				<li><strong>Released under the MIT License.</strong></li>
+				<li>Created: 04/14/2012</li>
+				<li>Latest update: 12/11/2013</li>
+				<li>By: Zach Reed (<a href="https://twitter.com/#!/bluetidepro">@bluetidepro</a>)</li>
+				<li>Contact: <a href="http://iamzachreed.com/contact/">http://iamzachreed.com/contact</a></li>
+			</ul>
+			<p><a href="https://twitter.com/bluetidepro" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @bluetidepro</a></p>
+			<p><a href="https://twitter.com/share" class="twitter-share-button" data-text="jquery.JamCity gets your last.fm data and displays it in a modern layout! Check it out! #jQuery" data-url="http://bluetidepro.github.io/jQuery.JamCity/" data-via="bluetidepro" data-size="large" data-related="bluetidepro" data-hashtags="jQuery.JamCity" data-dnt="true">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+			<p><iframe src="http://ghbtns.com/github-btn.html?user=bluetidepro&repo=jQuery.JamCity&type=watch&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe></p>
+			<p><iframe src="http://ghbtns.com/github-btn.html?user=bluetidepro&repo=jQuery.JamCity&type=fork&count=true&size=large" height="30" width="170" frameborder="0" scrolling="0" style="width:170px; height: 30px;" allowTransparency="true"></iframe></p>
+			<p><iframe src="http://ghbtns.com/github-btn.html?user=bluetidepro&type=follow&count=true&size=large" height="30" width="240" frameborder="0" scrolling="0" style="width:240px; height: 30px;" allowTransparency="true"></iframe></p>
+		</section>
+		<section id="getting_started">
+			<div class="page-header"><h3>Getting Started</h3><hr class="notop"></div>
+			<p>First, include the jQuery library, jQuery.JamCity javascript (<em><strong>jQuery.JamCity.js</strong></em> or <em><strong>jQuery.JamCity.min.js</strong></em>) and the jQuery.JamCity CSS (<em><strong>jmc_styles.css</strong></em>) on the page(s) where you want to use jQuery.JamCity.</p>
+<pre class="prettyprint lang-html linenums">&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="jQuery.JamCity.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="css/jmc_styles.min.css" type="text/css"&gt;</pre>
+			<p>Then, add a container div with an ID to your HTML so we can output jQuery.JamCity somewhere.</p>
+<pre class="prettyprint lang-html linenums">&lt;div id="JMC_Container"&#8250;&#8249;/div&gt;</pre>
+			<p>Then, initialize jQuery.JamCity. Put the following code before the closing tag of your body ().</p>
+<pre class="prettyprint lang-html linenums">&lt;script type="text/javascript"&gt;
+$(document).ready(function(){
+	$("#JMC_Container").JamCity({
+		apiKey: '{your_apiKey}',
+		username: '{your_username}'
+	});
+});
+&lt;/script&gt;</pre>
+			<p><strong>NOTE: Please do not use my API key (</strong><em>c5d7bcc2600127f2c24e5b50c5f8ea5a</em><strong>) on your site</strong>. This API key is used only for demo purposes. <strong>You can generate your own key for free here <a href="http://www.last.fm/api/account">http://www.last.fm/api/account</a></strong>! <strong>Thank you!</strong></p>
+		</section>
+		<section id="usage">
+			<div class="page-header"><h3>Usage</h3><hr class="notop"></div>
+			<h5><strong>Configuration Settings</strong></h5>
+<pre class="prettyprint lang-js linenums">$("#demo1").JamCity({
+	apiKey: '',
+	username: '',
+	fetch: 5,
+	contentType: 'recentTracks',
+	artSize: 'medium',
+	cssTooltips: true,
+	cssThemeClass: null,
+	_blankLinks: true,
+	refreshResults: true,
+	refreshResultsInterval: 600000,
+	noAlbumArtImg: 'http://placehold.it/250x250&text=No Art',
+	noResults: 'Sorry, nothing was found...',
+	songsFetched: function () {},
+	htmlBuilt: function () {}
+});</pre>
+			<p><strong>Required params:</strong></p>
+			<ul>
+				<li><p><code class="prettyprint lang-js">apiKey</code> - <strong>[string]</strong></p><p>Your Last.fm API key (easily setup free: <a href="http://www.last.fm/api/account">http://www.last.fm/api/account</a> )</p></li>
+				<li><p><code class="prettyprint lang-js">username</code> - <strong>[string]</strong></p><p>Your Last.fm username (ie. <em>http://www.last.fm/user/<strong>USERNAME</strong></em> )</p></li>
+			</ul>
+			<p><strong>Optional params:</strong></p>
+			<ul>
+				<li><p><code class="prettyprint lang-js">fetch</code> - <strong>[integer]</strong></p><p>The number of tracks to fetch/display. Default is 5.</p></li>
+				<li><p><code class="prettyprint lang-js">contentType</code> - <strong>[string]</strong></p><p>The content to display, accepted values are recentTracks, lovedTracks, topAlbums, topTracks, topArtists, weeklyArtistChart, weeklyAlbumChart, and weeklyTrackChart. Default is recentTracks.</p></li>
+				<li><p><code class="prettyprint lang-js">artSize</code> - <strong>[string]</strong></p><p>The album art size to use, accepted values are small, medium, and large. Default is medium.</p></li>
+				<li><p><code class="prettyprint lang-js">cssTooltips</code> - <strong>[boolean]</strong></p><p>Display the content name/plays/etc. in a CSS tooltip. Default is true.</p></li>
+				<li><p><code class="prettyprint lang-js">cssThemeClass</code> - <strong>[string]</strong></p><p>The CSS class attached to the displayed content, accepted value is jamCityTheme_whiteVinyl if you want the built in white theme. This can be changed to something custom. Default is null (a dark theme). (NOTE: If you change this to something custom, be sure to update your CSS file)</p></li>
+				<li><p><code class="prettyprint lang-js">_blankLinks</code> - <strong>[boolean]</strong></p><p>Open all links in the content in a new window/tab. Default is true.</p></li>
+				<li><p><code class="prettyprint lang-js">refreshResults</code> - <strong>[boolean]</strong></p><p>Auto refresh the content for new results without reloading the page. Default is true..</p></li>
+				<li><p><code class="prettyprint lang-js">refreshResultsInterval</code> - <strong>[integer]</strong></p><p>If refreshResults is true, how often do you want to pull new results (in milliseconds). Default is 600000 (60 seconds). (NOTE: For your protection against the Last.FM API, this number can't be below 10000).</p></li>
+				<li><p><code class="prettyprint lang-js">noAlbumArtImg</code> - <strong>[string]</strong></p><p>The default image to use if there is no album art for the track. Default is http://placehold.it/250x250&text=No Art..</p></li>
+				<li><p><code class="prettyprint lang-js">noResults</code> - <strong>[string]</strong></p><p>Text to display when no results are found. Default is 'Sorry, nothing was found...'..</p></li>
+				<li><p><code class="prettyprint lang-js">songsFetched</code> - <strong>[function]</strong></p><p>On complete of fetching the songs, run a function or do something else..</p></li>
+				<li><p><code class="prettyprint lang-js">htmlBuilt</code> - <strong>[function]</strong></p><p>On complete of building the HTML, run a function or do something else..</p></li>
+			</ul>
+			<h5><strong>HTML Output</strong></h5>
+<pre class="prettyprint lang-html linenums">&lt;ul id="jamCityWrapper" class="jamCitySize_{size}"&gt;
+  &lt;li&gt;
+    &lt;a href="{Link}" data-tip="{name}" class="case {nowplaying}" target="_blank"&gt;
+      &lt;div class="overlay"&gt;&lt;/div&gt;
+      &lt;div class="cover"&gt;&lt;img src="{art}"&gt;&lt;/div&gt;
+      &lt;div class="vinyl"&gt;&lt;/div&gt;
+    &lt;/a&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;a href="{Link}" data-tip="{name}" class="case {nowplaying}" target="_blank"&gt;
+      &lt;div class="overlay"&gt;&lt;/div&gt;
+      &lt;div class="cover"&gt;&lt;img src="{art}"&gt;&lt;/div&gt;
+      &lt;div class="vinyl"&gt;&lt;/div&gt;
+    &lt;/a&gt;
+  &lt;/li&gt;
+  &lt;!-- etc... --&gt;
+&lt;/ul&gt;</pre>
+		</section>
+		<section id="demos">
+			<div class="page-header"><h3>Demos</h3><hr class="notop"></div>
 
-    <li><pre>username</pre>
-    <p>Your Last.fm username.</p></li>
+			<h5><strong>Demo 1</strong> <em>(default settings)</em></h5>
+			<div id="demo1"></div>
+<pre class="prettyprint lang-js linenums">$("#demo1").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'bluetidepro'
+});</pre>
+			<h5><strong>Demo 2</strong> <em>(small size + fetch 8)</em></h5>
+			<div id="demo2"></div>
+<pre class="prettyprint lang-js linenums">$("#demo2").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'bluetidepro',
+	fetch: 8,
+	artSize: 'small'
+});</pre>
+			<h5><strong>Demo 3</strong> <em>(large size + fetch 3 + no refreshing for new results)</em></h5>
+			<div id="demo3"></div>
+<pre class="prettyprint lang-js linenums">$("#demo3").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'bluetidepro',
+	artSize: 'large',
+	fetch: 3,
+	refreshResults: false
+});</pre>
+			<h5><strong>Demo 4</strong> <em>(topArtists + fetch 4 + htmlBuilt callback)</em></h5>
+			<div id="demo4"></div>
+<pre class="prettyprint lang-js linenums">$("#demo4").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'bluetidepro',
+	contentType: 'topArtists',
+	fetch: 4,
+	htmlBuilt: function () {
+		console.log('This is a htmlBuilt callback function!');
+	}
+});</pre>
+			<h5><strong>Demo 5</strong> <em>(weeklyAlbumChart + no _blankLinks + fetch 4)</em></h5>
+			<div id="demo5"></div>
+<pre class="prettyprint lang-js linenums">$("#demo5").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'bluetidepro',
+	contentType: 'weeklyAlbumChart',
+	_blankLinks: false,
+	fetch: 4
+});</pre><div style="background: #000;">
+			<h5 style="color: #fff;"><strong>Demo 6</strong> <em>(topAlbums + fetch 8 + jamCityTheme_whiteVinyl theme)</em></h5>
+			<div id="demo6"></div>
+<pre class="prettyprint lang-js linenums">$("#demo6").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'bluetidepro',
+	contentType: 'topAlbums',
+	cssThemeClass: 'jamCityTheme_whiteVinyl',
+	fetch: 8
+});</pre></div>
+			<h5><strong>Demo 7</strong> <em>(topTracks + fetch 2 + refresh results + refresh results every 40 seconds)</em></h5>
+			<div id="demo7"></div>
+<pre class="prettyprint lang-js linenums">$("#demo7").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'bluetidepro',
+	contentType: 'topTracks',
+	fetch: 2,
+	refreshResults: true,
+	refreshResultsInterval: 400000
+});</pre>
+			<h5><strong>Demo 8</strong> <em>(Loved tracks + custom noResults text)</em></h5>
+			<div id="demo8"></div>
+<pre class="prettyprint lang-js linenums">$("#demo8").JamCity({
+	apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+	username: 'St4rStruck4VT',
+	noResults: 'Sorry homie, ain\'t no loved tracks here!',
+	contentType: 'lovedTracks'
+});</pre>
+		</section>
+		<section id="changelog">
+			<div class="page-header"><h3>Changelog</h3><hr class="notop"></div>
+			<ul>
+				<li>
+					<p><strong>jQuery.JamCity : v. 2.0</strong> <em>(Dec 11th, 2013)</em><br/>
+						Refactored the whole plugin, added new content types, and cleaned up the themes.</p>
+				</li>
+				<li>
+					<p><strong>jQuery.JamCity : v. 1.1</strong> <em>(May 15th, 2012)</em><br/>
+						Added two new options (<span>`refreshResults`</span> and <span>`refreshResultsInt`</span>), so you can pull for new results. This is great for the contentType <span>`recentTracks`</span> to have it dynamically show what you're listening to. Cleaned up a few small miscellaneousness bugs.</p>
+				</li>
+				<li>
+					<p><strong>jQuery.JamCity : v. 1.0</strong> <em>(May 14th, 2012)</em><br/>
+						First build of jQuery.JamCity.</p>
+				</li>
+			</ul>
+		</section>
+		<section id="faq">
+			<div class="page-header"><h3>FAQ</h3><hr class="notop"></div>
+			<ul>
+				<li>
+					<p><strong>Where do I get my own Last.FM api key?</strong><br/>
+						It's very easy, <strong>and FREE</strong>. Simply signup for an API key (be sure to be logged into Last.FM) <a href="http://www.last.fm/api/account">here (http://www.last.fm/api/account)</a>.</p>
+				</li>
+				<li>
+					<p><strong>I don't use Last.FM, can I get this working for Spotify?</strong><br/>
+						Yes! What you can do is connect your Spotify account to "scrobble" what you play from Spotify to Last.FM (this is built into Spotify already). You will still need to create a Last.FM account to connect everything but once you do that, everything you play on Spotify will automatically be sent to your Last.FM account, then used by jQuery.JamCity!</p>
+				</li>
+				<li>
+					<p><strong>Where should I report any bugs?</strong><br/>
+						Please report all jQuery.JamCity bugs on the <a href="https://github.com/bluetidepro/jQuery.JamCity/issues">github 'Issues' page</a>. Thanks!</p>
+				</li>
+				<li>
+					<p><strong>I have a feature request, what do I do?</strong><br/>Post it on the jQuery.JamCity <a href="https://github.com/bluetidepro/jQuery.JamCity/issues">github 'Issues' page</a>. Thanks!</p>
+				</li>
+			</ul>
+		</section>
+		<section id="more_info_and_contact">
+			<div class="page-header"><h3>More info, and contact</h3><hr class="notop"></div>
+			<p>Code inspired from "<a href="http://labs.engageinteractive.co.uk/lastfm/">Last.fm Plugin for jQuery</a>" and "<a href="https://github.com/kylehotchkiss/jQuery.nowPlaying">jQuery.nowPlaying</a>"</p>
+			<p><a href="http://iamzachreed.com/contact/">Contact me</a> (<a href="https://twitter.com/#!/bluetidepro">or tweet @bluetidepro</a>) if you have any questions about jQuery.JamCity.</p>
+		</section>
+		<section id="license">
+			<div class="page-header"><h3>License</h3><hr class="notop"></div>
+			<p>The MIT License (MIT)</p>
+			<p>Copyright (C) 2013 Zach Reed, http://iamzachreed.com/</p>
+			<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+			this software and associated documentation files (the "Software"), to deal in
+			the Software without restriction, including without limitation the rights to
+			use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+			the Software, and to permit persons to whom the Software is furnished to do so,
+			subject to the following conditions:</p>
+			<p>The above copyright notice and this permission notice shall be included in all
+			copies or substantial portions of the Software.</p>
+			<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+			IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+			FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+			COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+			IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+			CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+		</section>
+	</div>
 
-    <li><pre>contentType</pre>
-    <p>Content to display. Defaults to <span>`recentTracks`</span>. Variables: <span>`lovedTracks`</span> (Your Loved Tracks), <span>`topAlbums`</span> (Your Top Albums), <span>`topTracks`</span> (Your Top Tracks), <span>`newReleases`</span> (Your New Releases), <span>`recentTracks`</span> (Your Recent Tracks).</p></li>
-
-    <li><pre>artSize</pre>
-    <p>Output album art size. Defaults to <span`>medium`</span>. Variables: <span>`sm`</span> or <span>`small`</span>, <span>`md`</span> or <span>`medium`</span>, <span>`lg`</span> or <span>`large`</span>.</p></li>
-
-    <li><pre>artQuality</pre> - <strong><em>Default:</strong> 'normal'</em>
-    <p>Output album art quality. Defaults to `normal`. Variables: <span>`normal`</span>, <span>`high`</span>, or <span>`extreme`</span>. <strong>(NOTE: Choosing `high` or `extreme` may slow load speed)</strong></p></li>
-
-    <li><pre>number</pre> - <strong><em>Default:</strong> '5'</em>
-    <p>Number of tracks to display. Defaults to 5.</p></li>
-
-    <li><pre>refreshResults</pre> - <strong><em>Default:</strong> 'true'</em>
-    <p>Do you want to auto refresh for new results without reloading the page (Good for contentType <span>`recentTracks`</span>)? Defaults to <span>`true`</span>.</p></li>
-
-    <li><pre>refreshResultsInt</pre> - <strong><em>Default:</strong> '45000'</em>
-    <p>How often do you want to pull new results? Int, in milliseconds. Defaults to <span>`45000`</span> (every 45 seconds).</p></li>
-
-    <li><pre>tooltips</pre> - <strong><em>Default:</strong> 'true'</em>
-    <p>Do you want to use tooltips? Defaults to <span>`true`</span>. Variables: <span>`true`</span> or <span>`false`</span>.</p></li>
-
-    <li><pre>nowPlayingIcon</pre> - <strong><em>Default:</strong> 'true'</em>
-    <p>Do you want to see the "Now Playing" equalizer icon if that value exists? Defaults to <span>`true`</span>. Variables: <span>`true`</span> or <span>`false`</span>.</p></li>
-
-    <li><pre>_blankLinks</pre></strong> - <strong><em>Default:</strong> 'true'</em>
-    <p>Do you want links to open in a new window? Defaults to <span>`true`</span>. Variables: <span>`true`</span> or <span>`false`</span>.</p></li>
-
-    <li><pre>noAlbumArtImg</pre></strong> - <strong><em>Default:</strong> 'http://placehold.it/126x126&amp;text=No Art'</em>
-    <p>Default image to use if there is no album art for the track.</p></li>
-
-    <li><pre>cssWrapperID</pre></strong> - <strong><em>Default:</strong> 'jmc_wrap'</em>
-    <p>CSS ID for <span>`UL`</span> wrapper. Defaults to <span>`jmc_wrap`</span>. <strong>(NOTE: If you change this, be sure to update your CSS file.)</strong></p></li>
-
-    <li><pre>cssThemeClass</pre></strong> - <strong><em>Default:</strong> 'jmc_dark_theme'</em>
-    <p>CSS theme to use. Defaults to <span>`jmc_dark_theme`</span>. Variables: <span>`jmc_dark_theme`</span> or <span>`jmc_light_theme`</span>. <strong>(NOTE: If you change this, be sure to update your CSS file.)</strong></p></li>
-
-    <li><pre>noLovedTracks</pre></strong> - <strong><em>Default:</strong> 'Sorry, No loved tracks...'</em>
-    <p>Text to display when there is no loved tracks.</p></li>
-
-    <li><pre>noTopAlbums</pre></strong> - <strong><em>Default:</strong> 'Sorry, No top albums...'</em>
-    <p>Text to display when there is no top albums.</p></li>
-
-    <li><pre>noTopTracks</pre></strong> - <strong><em>Default:</strong> 'Sorry, No top tracks...'</em>
-    <p>Text to display when there is no top tracks.</p></li>
-
-    <li><pre>noNewReleases</pre></strong> - <strong><em>Default:</strong> 'Sorry, No new releases...'</em>
-    <p>Text to display when there is no new releases.</p></li>
-
-    <li><pre>noRecentTracks</pre></strong> - <strong><em>Default:</strong> 'Sorry, No recent tracks...'</em>
-    <p>Text to display when there is no recent tracks.</p></li>
-
-    <li><pre>onComplete</pre>
-    <p>On complete, fun a function or do something else.</p></li>
-  </ul>
-  <h3>Each Item HTML Output</h3>
-  <pre>  &#8249;li class="jmc_track"&#8250;
-    &#8249;a href="{Track Link}" title="{name} by {artist}" target="_blank"&#8250;
-      &#8249;span class="jmc_album_art"&#8250;&#8249;img src="{album art}" alt="{name} by {artist}">&#8250;&#8249;/span&#8250;
-      &#8249;span class="jmc_vinyl_case"&#8250;&#8249;/span&#8250;
-      &#8249;span class="jmc_vinyl_slip"&#8250;&#8249;/span&#8250;
-      &#8249;span class="jmc_vinyl"&#8250;&#8249;/span&#8250;
-      &#8249;div class="jmc_tooltip_wrap"&#8250;{name} by {artist}&#8249;span class="jmc_tooltip_arrow_down"&#8250;&#8249;/span&#8250;&#8249;/div&#8250;
-    &#8249;/a&#8250;
-  &#8249;/li&#8250;</pre>
-  <hr/>
-  <h2 id="Demos">Demos</h2>
-  <h3>Demo 1 <em>(default settings)</em></h3>
-    <div id="demo1"></div>
-    <pre>  $("#demo1").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro' 
-  });</pre>
-  <h3>Demo 2 <em>(small size + 12)</em></h3>
-    <div id="demo2"></div> 
-    <pre>  $("#demo2").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro',
-    artSize: 'sm',
-    number: 12
-  });</pre>
-  <h3>Demo 3 <em>(large size + extreme quality + 4 + no refreshing for new results)</em></h3>
-    <div id="demo3"></div> 
-    <pre>  $("#demo3").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro',
-    artQuality: 'extreme',
-    number: 4,
-    refreshResults: false,
-    artSize: 'lg'
-  });</pre>
-  <h3>Demo 4 <em>(Top albums + high quality + 7)</em></h3>
-    <div id="demo4"></div> 
-    <pre>  $("#demo4").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro',
-    contentType: 'topAlbums',
-    artQuality: 'high',
-    number: 7
-  });</pre>
-  <h3>Demo 5 <em>(Top tracks + high quality + 7)</em></h3>
-    <div id="demo5"></div> 
-    <pre>  $("#demo5").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro',
-    contentType: 'topTracks',
-    artQuality: 'high',
-    number: 7
-  });</pre>
-  <h3>Demo 6 <em>(New Releases + 7)</em></h3>
-    <div id="demo6"></div> 
-    <pre>  $("#demo6").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro',
-    contentType: 'newReleases',
-    number: 7
-  });</pre>
-  <h3>Demo 7 <em>(large size + light theme + 4)</em></h3>
-    <div id="demo7"></div> 
-    <pre>  $("#demo7").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro',
-    cssThemeClass: 'jmc_light_theme',
-    number: 4,
-    artSize: 'lg'
-  });</pre>
-  <h3>Demo 8 <em>(Loved tracks + custom help text + no refreshing for new results)</em></h3>
-    <div id="demo8"></div> 
-    <pre>  $("#demo8").JamCity({ 
-    apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-    username: 'bluetidepro',
-    contentType: 'lovedTracks',
-    refreshResults: false,
-    noLovedTracks: 'Sorry homie, ain\'t no loved tracks here!'
-  });</pre>
-  <hr/>
-  <h2 id="Changelog">Changelog</h2>
-  <ul class="clearfix">
-    <li><strong>jQuery.JamCity : v. 1.1</strong> (May 15th, 2012)
-    <p>Added two new options (<span>`refreshResults`</span> and <span>`refreshResultsInt`</span>), so you can pull for new results. This is great for the contentType <span>`recentTracks`</span> to have it dynamically show what you're listening to. Cleaned up a few small miscellaneousness bugs.</p></li>
-    <li><strong>jQuery.JamCity : v. 1.0</strong> (May 14th, 2012)
-    <p>First build of jQuery.JamCity.</p></li>
-  </ul>
-  <hr/>
-  <h2 id="FAQ">FAQ</h2>
-  <ul class="clearfix">
-    <li><strong>Where do I get a Last.FM api key?</strong>
-    <p>It's very easy. Simply signup for an API key (be sure to be logged into Last.FM) <a href="http://www.last.fm/api/account">here (http://www.last.fm/api/account)</a>.</p></li>
-    <li><strong>I don't use Last.FM, can I get this working for Spotify?</strong>
-
-    <p>Yes! What you can do is connect your Spotify account to "scrobble" what you play from Spotify to Last.FM (this is built into Spotify already). You will still need to create a Last.FM account to connect everything but once you do that, everything you play on Spotify will automatically be sent to your Last.FM account, then used by jQuery.JamCity!</p></li>
-
-    <li><strong>Where should I report any bugs?</strong>
-    <p>Please report all jQuery.JamCity bugs on the <a href="https://github.com/bluetidepro/jQuery.JamCity/issues">github 'Issues' page</a>. Thanks!</p></li>
-
-    <li><strong>I have a feature request, what do I do?</strong>
-    <p>You can <a href="mailto:zreed@bluetideproductions.com">Email me</a> (Twitter: <a href="https://twitter.com/#!/bluetidepro">@bluetidepro</a>) or post it on the jQuery.JamCity <a href="https://github.com/bluetidepro/jQuery.JamCity/issues">github 'Issues' page</a>. Thanks!</p></li>
-  </ul>
-  <hr/>
-  <h2 id="Info">More info, and contact</h2>
-  <p>Portions of the code derived/forked from "<a href="http://labs.engageinteractive.co.uk/lastfm/">Last.fm Plugin for jQuery</a>" and "<a href="https://github.com/kylehotchkiss/jQuery.nowPlaying">jQuery.nowPlaying</a>"</p>
-  <p>Original .PSD for some design elements by <a href="http://dribbble.com/thyraz">Tobias Wiedenmann</a> - <a href="http://365psd.com/day/267/">Music Album Cover PSD</a></p>
-  <p>jQuery.JamCity has <a href="http://cherne.net/brian/resources/jquery.hoverIntent.html">hoverIntent r6 (2011.02.26)</a> built-in for tooltips to work properly.</p>
-  <hr/>
-  <p><a href="mailto:zreed@bluetideproductions.com">Email me</a> (Twitter: <a href="https://twitter.com/#!/bluetidepro">@bluetidepro</a>) if you have any questions about jQuery.JamCity.</p>
-</div>
-<!-- jQuery.JamCity & jQuery 1.7.2 include -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="jQuery.JamCity.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript"> 
-  $(document).ready(function() {
-
-    $("#demo1").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro' 
-    });
-
-   $("#demo2").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro',
-      artSize: 'sm',
-      number: 12
-    });
-
-    $("#demo3").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro',
-      artQuality: 'extreme',
-      number: 4,
-      refreshResults: false,
-      artSize: 'lg'
-    });
-
-    $("#demo4").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro',
-      contentType: 'topAlbums',
-      artQuality: 'high',
-      number: 7
-    });
-
-    $("#demo5").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro',
-      contentType: 'topTracks',
-      artQuality: 'high',
-      number: 7
-    });
-
-    $("#demo6").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro',
-      contentType: 'newReleases',
-      artQuality: 'high',
-      number: 7
-    });
-
-    $("#demo7").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro',
-      cssThemeClass: 'jmc_light_theme',
-      number: 4,
-      artSize: 'lg'
-    });
-
-    $("#demo8").JamCity({ 
-      apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
-      username: 'bluetidepro',
-      contentType: 'lovedTracks',
-      refreshResults: false,
-      noLovedTracks: 'Sorry homie, ain\'t no loved tracks here!'
-    });
-
-  });
-</script> 
+<script src="jquery.JamCity.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="css/jmc_styles.min.css" type="text/css">
+<script type="text/javascript">
+$(function () {
+	$('#demo1').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'bluetidepro'
+	});
+	$('#demo2').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'bluetidepro',
+		fetch: 8,
+		artSize: 'small'
+	});
+	$('#demo3').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'bluetidepro',
+		artSize: 'large',
+		fetch: 3,
+		refreshResults: false
+	});
+	$('#demo4').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'bluetidepro',
+		contentType: 'topArtists',
+		fetch: 4,
+		htmlBuilt: function () {
+			console.log('This is a htmlBuilt callback function!');
+		}
+	});
+	$('#demo5').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'bluetidepro',
+		contentType: 'weeklyAlbumChart',
+		_blankLinks: false,
+		fetch: 4
+	});
+	$('#demo6').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'bluetidepro',
+		contentType: 'topAlbums',
+		cssThemeClass: 'jamCityTheme_whiteVinyl',
+		fetch: 8
+	});
+	$('#demo7').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'bluetidepro',
+		contentType: 'topTracks',
+		fetch: 2,
+		refreshResults: true,
+		refreshResultsInterval: 400000
+	});
+	$('#demo8').JamCity({
+		apiKey: 'c5d7bcc2600127f2c24e5b50c5f8ea5a',
+		username: 'St4rStruck4VT',
+		noResults: 'Sorry homie, ain\'t no loved tracks here!',
+		contentType: 'lovedTracks'
+	});
+});
+</script>
 </body>
 </html>
